@@ -52,21 +52,37 @@ from pycocotools.coco import COCO
 annotation = 'path/to//annotations.json'
 coco = COCO(annotation)
 ```
+getting category ID and category name
 ```python
-#getting category names
-cat_id = coco.getCatIds()
-categories = coco.loadCats(cat_id)
 
-#getting category ID and category name
 categories = [(category['id'],category['name']) for category in categories]
 print(categories)
 ```
 
+A specific category iD
+```python
+cat_es = coco.getCatIds(catNms=['whiting'])
+print(cat_es)
+```
+
+Get the sequence of image IDs
+```python
+img_ids = coco.getImgIds()
+print(img_ids)
+```
+
+**Annotation ID**
+
+getAnnIds() function is crucial for extracting specific annotation ids that match certain image IDs, category IDs or other criteria
+
+**What does it do?**
+
+it retrieves annotation ids that satisft the given conditions
 
 
+> ann_ids = coco.getAnnIds(imgIds=[10, 20], catIds=[1, 2], iscrowd=None)
 
-
-
+here filters annotations for images with ID 10 and 20, filters annotations belonging to categories 1 and 2, igores the annotations marked as crowd
 
 
 
