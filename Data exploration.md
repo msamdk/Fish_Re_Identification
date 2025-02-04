@@ -29,9 +29,15 @@ list an example annotation
 ann_ex = annotations['annotations']
 print("Example annotation:", ann_ex[0])
 ```
+<h2>pycocotools</h2>
 
 But rather than using json to read the annotation, you can use pycocotools
 ```python
 
 pip install pycocotools
 ```
+After installation you can get to know about the functions in the library
+```python
+help(COCO)
+```
+
