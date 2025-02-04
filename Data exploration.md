@@ -45,15 +45,22 @@ To see a specific function
 help(COCO.loadCats)
 ```
 
-IMporting the dataset
+Importing the dataset
 ```python
 from pycocotools.coco import COCO
 
 annotation = 'path/to//annotations.json'
 coco = COCO(annotation)
 ```
+```python
+#getting category names
+cat_id = coco.getCatIds()
+categories = coco.loadCats(cat_id)
 
-
+#getting category ID and category name
+categories = [(category['id'],category['name']) for category in categories]
+print(categories)
+```
 
 
 
