@@ -147,6 +147,8 @@ plt.show()
 
 ```
 
+Result
+<img src="images/fish with segmentation.png" alt="Alt text" width="500">
 
 
 
