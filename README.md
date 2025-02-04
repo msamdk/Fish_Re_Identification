@@ -1,4 +1,4 @@
-Object Re-Identification in Fisheries Science
+#Object Re-Identification in Fisheries Science
 Object re-identification (Re-ID) is a crucial technology with real-world industrial applications, including fisheries science. The ability to count and track individual fish over time and space enhances monitoring and behavioral analysis, providing valuable insights into fisheries management.
 
 In fisheries technology, accurately tracking the number of individuals entering a fishing gear—especially active gears like trawls—is essential. However, challenges arise when fish move with the gear, re-enter, or appear in multiple frames at different times, leading to miscounts and confusion in underwater video observations.
