@@ -34,77 +34,24 @@ Each image entry includes:
 
 Example:
 ```json
-"images": [
-  {
-   "height": 2056,
-   "width": 2464,
-   "id": 1,
-   "file_name": "group_01/00001.png",
-   "group": 1
-  },
-  {
-   "height": 2056,
-   "width": 2464,
-   "id": 2,
-   "file_name": "group_01/00002.png",
-   "group": 1
-  }
-]
-
-"annotations": [
-  {
-   "iscrowd": 0,
-   "image_id": 1,
-   "bbox": [
-    381.0,
-    1123.0,
-    822.0,
-    378.0
-   ],
-   "segmentation": [
-    [
-     1192,
-     1501,
-     1110,
-     1477,
-     1038,
-     1437,
-     872,
-     1417,
-     594,
-     1323,
-     482,
-     1263,
-     393,
-     1176,
-     381,
-     1142,
-     430,
-     1123,
-     498,
-     1123,
-     800,
-     1233,
-     888,
-     1285,
-     1048,
-     1415,
-     1196,
-     1439,
-     1203,
-     1448,
-     1183,
-     1480
-    ]
-   ],
-   "category_id": 0,
-   "length": 35.5,
-   "fish_id": 316,
-   "side_up": "R",
-   "id": 1,
-   "area": 92164
-  }
-]
+{
+  "images": [
+    {
+      "height": 2056,
+      "width": 2464,
+      "id": 1,
+      "file_name": "group_01/00001.png",
+      "group": 1
+    },
+    {
+      "height": 2056,
+      "width": 2464,
+      "id": 2,
+      "file_name": "group_01/00002.png",
+      "group": 1
+    }
+  ]
+}
 
 
 
