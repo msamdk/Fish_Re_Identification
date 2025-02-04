@@ -12,10 +12,8 @@ Here i deployed following steps to rearrange the dataset
 - Training YOLO models on the processed dataset
 
 ## **📂 YOLO-Compatible Folder Structure**
-After processing, the dataset follows the YOLO structure:
-----
-<img src="images/yolofolder.png" alt="Alt text" width="500">
 
+<img src="images/yolofolder.png" alt="Alt text" width="500">
 
 The model training is done from the HPC server of DTU and the dataset and outputs is stored in the work3 directory
 
