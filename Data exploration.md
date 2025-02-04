@@ -8,7 +8,7 @@ import json
 with open('/content/drive/MyDrive/Thesis/autofish/annotations.json') as f:
     annotations = json.load(f)
 ```
-Printing major keys in the annotation file
+Printing major keys in the annotation file.
 COCO style annnotations typically contain these keys
 1. images
 2. annotations
@@ -28,4 +28,10 @@ list an example annotation
 
 ann_ex = annotations['annotations']
 print("Example annotation:", ann_ex[0])
+```
+
+But rather than using json to read the annotation, you can use pycocotools
+```python
+
+pip install pycocotools
 ```
