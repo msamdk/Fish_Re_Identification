@@ -38,21 +38,22 @@ Each image entry includes:
 Example:
 ```json
 "images": [
-    {
-        "id": 1,
-        "file_name": "group_01/00001.png",
-        "height": 1080,
-        "width": 1920,
-        "group": "group_01"
-    },
-    {
-        "id": 2,
-        "file_name": "group_02/00001.png",
-        "height": 1080,
-        "width": 1920,
-        "group": "group_02"
-    }
+  {
+   "height": 2056,
+   "width": 2464,
+   "id": 1,
+   "file_name": "group_01/00001.png",
+   "group": 1
+  },
+  {
+   "height": 2056,
+   "width": 2464,
+   "id": 2,
+   "file_name": "group_01/00002.png",
+   "group": 1
+  }
 ]
 
-<img src="image 1.png" alt="Alt text" width="500">
+
+
 
