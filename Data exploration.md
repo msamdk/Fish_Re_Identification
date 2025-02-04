@@ -85,10 +85,36 @@ it retrieves annotation ids that satisft the given conditions
 here filters annotations for images with ID 10 and 20, filters annotations belonging to categories 1 and 2, igores the annotations marked as crowd
 
 
+Get annotation IDs for objects larger than 1000 pixels in area
+```python
+ann_ids_large = coco.getAnnIds(areaRng=[1000, float('inf')])
+annotations_large = coco.loadAnns(ann_ids_large)
+print(f"Total large annotations: {len(annotations_large)}")
+```
 
+knowing the annotation structure of the annotation.json file
+```python
+img_ID = 2
+ann_ids = coco.getAnnIds(imgIds=[img_ID])
+annotations = coco.loadAnns(ann_ids)
+print(annotations[0])
+```
 
+```
+{
+  'iscrowd': 0,
+  'image_id': 2,
+  'bbox': [79.0, 479.0, 196.0, 892.0],
+  'segmentation': [[140, 1371, 110, 1369, 101, 1346, 143, 1188, 129, 1068, 85, 982, 79, 912, 97, 688, 115, 616, 157, 502, 190, 479, 217, 514, 263, 652, 275, 844, 239, 1146, 197, 1210, 185, 1280],
+  'category_id': 1,
+  'length': 36.0,
+  'fish_id': 419,
+  'side_up': 'L',
+  'id': 9,
+  'area': 111561
+  }
 
-
+```
 
 
 
