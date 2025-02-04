@@ -40,4 +40,45 @@ After installation you can get to know about the functions in the library
 ```python
 help(COCO)
 ```
+To see a specific function
+```python
+help(COCO.loadCats)
+```
+
+IMporting the dataset
+```python
+from pycocotools.coco import COCO
+
+annotation = 'path/to//annotations.json'
+coco = COCO(annotation)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
