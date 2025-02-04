@@ -99,7 +99,7 @@ ann_ids = coco.getAnnIds(imgIds=[img_ID])
 annotations = coco.loadAnns(ann_ids)
 print(annotations[0])
 ```
-
+Result
 ```
 {
   'iscrowd': 0,
@@ -117,10 +117,35 @@ print(annotations[0])
 ```
 
 
+Visualizing an image with its segmentation masks
+```python
+import matplotlib.pyplot as plt
+import cv2
+
+img_id = 2 #this is the annotation image id in a spefic group, just define it then in later steps it will find the image
+image_info = coco.loadImgs(img_id)[0]
+print(image_info)
+
+#path to the main folder with all the subfolders in the autofish (groups)
+image_path = f"/content/drive/MyDrive/Thesis/autofish/{image_info['file_name']}"
 
 
+#reading the image
+image = cv2.imread(image_path)
 
+# Check if the image was loaded correctly
+if image is None:
+    raise FileNotFoundError(f"Image not found at path: {image_path}")
 
+ann_ids = coco.getAnnIds(imgIds=[img_id])
+annotations = coco.loadAnns(ann_ids)
+
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.imshow(image)
+coco.showAnns(annotations)
+plt.show()
+
+```
 
 
 
