@@ -5,7 +5,7 @@ Reading the dataset from the source. This is an example if you are doing it from
 
 import json
 
-with open('/content/drive/MyDrive/Thesis/autofish/annotations.json') as f:
+with open('/content/drive/MyDrive/path//annotations.json') as f:
     annotations = json.load(f)
 ```
 Printing major keys in the annotation file.
