@@ -147,12 +147,65 @@ plt.show()
 
 ```
 
-Result
 <img src="images/fish with segmentation.png" alt="Alt text" width="500">
 
 
+For visualizing multimple images with their bounding boxes and segmentation masks
+```python
+import matplotlib.pyplot as plt       #displaying images
+import matplotlib.patches as patches  #drawing bounding boxes
+import cv2                            #read and process images
 
+#defining multiple selected images
+img_ids = [2, 50, 250, 500, 750, 1000]
 
+#getting metadata for the selected images
+image_infos = coco.loadImgs(img_ids)
+
+for image_info in image_infos:
+    #image path (main path to the autofish directory)
+    image_path = f"/content/drive/MyDrive/Thesis/autofish/{image_info['file_name']}"
+
+    #Reading image
+    image = cv2.imread(image_path)
+
+    #confirm the image read correctly
+    if image is None:
+        print(f"Warning: Image not found at {image_path}")
+        continue
+
+    #Resize image to COCO's recorded dimensions
+    image = cv2.resize(image, (image_info['width'], image_info['height']))
+    #adjusting the color profiles to RGB
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    #Get annotations for this image
+    ann_ids = coco.getAnnIds(imgIds=[image_info['id']])
+    annotations = coco.loadAnns(ann_ids)
+
+    #Debug: Check if annotations belong to the correct image
+    print(f"Annotations for Image {image_info['id']}: {ann_ids}")
+
+    #Plot Image
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.imshow(image)
+
+    #Plot Bounding Boxes
+    for ann in annotations:
+        bbox = ann['bbox']
+        x_min, y_min, width, height = bbox
+        rect = patches.Rectangle(
+            (x_min, y_min), width, height, linewidth=1, edgecolor='y', facecolor='none'
+        )
+        ax.add_patch(rect)
+
+    #Show Annotations using COCO
+    coco.showAnns(annotations)
+    plt.axis("off")
+    plt.title(f"Image ID: {image_info['id']}")
+    plt.show()
+
+```
 
 
 
