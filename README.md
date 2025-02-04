@@ -1,5 +1,9 @@
-# Object-RE-ID
-Object re identification is meant to play an important role in real world industrial applications. Out of them it can be applied in fisheries science as well. To count the individuals or track specific individual fish across time and space gives so much capability to monitor and analyze individual behaviour as well as other important aspects. FOr example in fisheries technology, its important to keep track or count the correct number of individuals that are entering a fishing gear, especiallt an active fishing gear like trawls. sometimes fish flow with the movement of the gear or some fish keep coming back. If we use an underwater camera for this observations, it is quiet confusing to have these individuals appearing and reappearing to the frames in different times. So it is important to develop models that can maintain the track of each individuals while keeping the accuracy and efficiency. This project will consist of several steps.
+Object Re-Identification in Fisheries Science
+Object re-identification (Re-ID) is a crucial technology with real-world industrial applications, including fisheries science. The ability to count and track individual fish over time and space enhances monitoring and behavioral analysis, providing valuable insights into fisheries management.
+
+In fisheries technology, accurately tracking the number of individuals entering a fishing gear—especially active gears like trawls—is essential. However, challenges arise when fish move with the gear, re-enter, or appear in multiple frames at different times, leading to miscounts and confusion in underwater video observations.
+
+To address this, developing robust Re-ID models is critical. These models must maintain accurate identification of each individual while ensuring efficiency and reliability. This project will follow a structured approach to achieve this goal, incorporating advanced tracking techniques and AI-driven methodologies to improve fish identification and monitoring.
 
 #Steps in the project
 1. Identifying and understanding the data structure and annotations of the Autofish dataset
