@@ -206,7 +206,7 @@ for image_info in image_infos:
     plt.show()
 
 ```
-
+<img src="images/bb andseg.png" alt="Alt text" width="500">
 
 
 
