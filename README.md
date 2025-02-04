@@ -20,8 +20,7 @@ To address this, developing robust Re-ID models is critical. These models must m
     <img src="https://img.shields.io/badge/View%20Dataset-AutoFish-blue?style=for-the-badge" />
 </a>
 
-## AutoFish Dataset
-We use the **[AutoFish dataset](https://huggingface.co/datasets/vapaau/autofish)**, which provides annotated fish images for object detection and re-identification.
+
 
 
 This dataset consists of **1,500 images** organized into **24 folders**, named sequentially as:  
