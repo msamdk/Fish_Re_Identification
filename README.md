@@ -16,6 +16,11 @@ To address this, developing robust Re-ID models is critical. These models must m
 
 ## **Dataset Structure for COCO Annotations in AutoFish data**
 
+<a href="https://huggingface.co/datasets/vapaau/autofish" target="_blank">
+    <img src="https://img.shields.io/badge/View%20Dataset-AutoFish-blue?style=for-the-badge" />
+</a>
+
+
 This dataset consists of **1,500 images** organized into **24 folders**, named sequentially as:  
 `group_01, group_02, ..., group_24`.  
 
