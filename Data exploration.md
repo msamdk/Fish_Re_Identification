@@ -9,10 +9,10 @@ with open('/content/drive/MyDrive/Thesis/autofish/annotations.json') as f:
     annotations = json.load(f)
 ```
 Printing major keys in the annotation file
-#COCO style annnotations typically contain these keys
-#images
-#annotations
-#categories
+COCO style annnotations typically contain these keys
+1. images
+2. annotations
+3. categories
 ```python
 print("Keys in annotation file:", annotations.keys())
 
