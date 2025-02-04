@@ -6,12 +6,17 @@ Before training, we should rearrange the Autofish dataset to be compatible with 
 As i discussed in the Data exploration section, the COCO annotation configuration is quiet different from the YOLO configuration. The image arrangement also have to be changed according to the YOLO model compatibility.
 Here i deployed following steps to rearrange the dataset
 
-1. Duplicating the images of Autofish data which in the folder structure by assigning their unique image id to rename all the image files and transfer the images in to a new directory which contain train, val and test folders.
-2. Inside these folders there should be two subfolders as images and labels to be compatible with the YOLO (see the diagram)
+- Duplicating and renaming images with unique IDs
+- Organizing images and annotations into a YOLO-compatible folder structure
+- Converting COCO annotations to YOLO format
+- Training YOLO models on the processed dataset
 
 <img src="images/yolofolder.png" alt="Alt text" width="500">
-3. Converting the COCO annotation format to YOLO format and generate text file for the corresponding image file in the respective train, val or test folder
-4. Installing ultralytics and starting to train the pretrained YOLO models with this custom dataset (here the goal is to test the performance of the model to identify each of the object with the correct class with high accuracy)
+
+## **📂 YOLO-Compatible Folder Structure**
+After processing, the dataset follows the YOLO structure:
+
+
 
 The model training is done from the HPC server of DTU and the dataset and outputs is stored in the work3 directory
 ```python
