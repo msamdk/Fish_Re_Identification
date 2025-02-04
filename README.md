@@ -13,4 +13,5 @@ To address this, developing robust Re-ID models is critical. These models must m
 
    
 <h2>Data structure in the AutoFish dataset</h2>
-![Alt text](image 1.png)
+<img src="image 1.png" alt="Alt text" width="500">
+
