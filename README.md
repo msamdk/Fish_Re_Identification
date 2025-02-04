@@ -123,5 +123,53 @@ Example
   }
 ]
 ```
+### **3. Categories**
+Each annotation entry includes:
+- `id`: A unique class identifier  
+- `name`: Name of the class  
+- `supercategory`: super category of classes
+
+```json
+"categories": [
+  {
+   "id": 0,
+   "name": "horse_mackerel",
+   "supercategory": "horse_mackerel"
+  },
+  {
+   "id": 1,
+   "name": "whiting",
+   "supercategory": "whiting"
+  },
+  {
+   "id": 2,
+   "name": "haddock",
+   "supercategory": "haddock"
+  },
+  {
+   "id": 3,
+   "name": "cod",
+   "supercategory": "cod"
+  },
+  {
+   "id": 4,
+   "name": "hake",
+   "supercategory": "hake"
+  },
+  {
+   "id": 5,
+   "name": "saithe",
+   "supercategory": "saithe"
+  },
+  {
+   "id": 6,
+   "name": "other",
+   "supercategory": "other"
+  }
+ ]
+}
+
+```
+ 
 
 
