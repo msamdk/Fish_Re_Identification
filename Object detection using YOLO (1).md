@@ -4,7 +4,7 @@
 
 Before training, we should rearrange the Autofish dataset to be compatible with the YOLO models.
 As i discussed in the Data exploration section, the COCO annotation configuration is quiet different from the YOLO configuration. 
-The images and the annotations were converted to YOLO compatible structure while maintaining the oroginal image groups structure. The exact train, val and test split was follwed as the following paper. 
+The images and the annotations were converted to YOLO compatible structure while maintaining the oroginal image groups structure. The exact train, val and test split was follwed according to the below paper. 
 
 ## Citation
 
