@@ -86,7 +86,7 @@ def process_dataset(coco_path, image_groups_dir, output_base_dir):
         group_folder = parts[0]      #example "group_03"
         original_filename = parts[-1]  #example "00001.jpg"
         
-        #Parse the group number (assumes folder name in the format "group_XX")
+        #Parse the group number 
         try:
             #This converts "group_03" -> "03" -> 3
             group_num = int(group_folder.split('_')[-1])
