@@ -55,11 +55,6 @@ for split in ["train", "val", "test"]:
 
 #function to convert COCO annotaions to YOLO format
 def convert_coco_to_yolo(x_min, y_min, width, height, img_width, img_height):
-    """
-    Convert a bounding box from COCO format (x, y, width, height)
-    to YOLO format (x_center, y_center, width, height) with values normalized
-    by the image width and height.
-    """
     x_center = (x_min + width / 2) / img_width
     y_center = (y_min + height / 2) / img_height
     norm_width = width / img_width
@@ -68,7 +63,7 @@ def convert_coco_to_yolo(x_min, y_min, width, height, img_width, img_height):
 
 #data processing
 def process_dataset(coco_path, image_groups_dir, output_base_dir):
-    # Load COCO annotations
+    #Load COCO annotations
     with open(coco_path, "r") as f:
         data = json.load(f)
     
@@ -81,15 +76,15 @@ def process_dataset(coco_path, image_groups_dir, output_base_dir):
     #Process each image defined in the oroginal annotations
     for img in data["images"]:
         img_id = img["id"]
-        file_name = img["file_name"]  # e.g., "group_03/00001.jpg"
+        file_name = img["file_name"]  # example- "group_03/00001.jpg"
         parts = file_name.split('/')
         if len(parts) < 2:
             print(f"Warning: File name format is unexpected: {file_name}")
             continue
         
         #Extract the group folder and original file name
-        group_folder = parts[0]      # e.g., "group_03"
-        original_filename = parts[-1]  # e.g., "00001.jpg"
+        group_folder = parts[0]      #example "group_03"
+        original_filename = parts[-1]  #example "00001.jpg"
         
         #Parse the group number (assumes folder name in the format "group_XX")
         try:
@@ -115,7 +110,8 @@ def process_dataset(coco_path, image_groups_dir, output_base_dir):
         dest_img_dir = os.path.join(output_base_dir, split, "images", group_folder)
         os.makedirs(dest_img_dir, exist_ok=True)
         #Rename the image with its unique image id
-        dest_img_filename = f"{img_id}.jpg"
+
+        dest_img_filename = original_filename
         dest_img_path = os.path.join(dest_img_dir, dest_img_filename)
         
         #Copy the image file if it exists
@@ -140,7 +136,8 @@ def process_dataset(coco_path, image_groups_dir, output_base_dir):
         if yolo_lines:
             dest_label_dir = os.path.join(output_base_dir, split, "labels", group_folder)
             os.makedirs(dest_label_dir, exist_ok=True)
-            label_filename = f"{img_id}.txt"
+            # Use the original file name (changing extension to .txt)
+            label_filename = f"{Path(original_filename).stem}.txt"
             label_path = os.path.join(dest_label_dir, label_filename)
             with open(label_path, "w") as f:
                 f.write("\n".join(yolo_lines))
