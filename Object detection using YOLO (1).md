@@ -109,7 +109,6 @@ def process_dataset(coco_path, image_groups_dir, output_base_dir):
         src_img_path = os.path.join(image_groups_dir, file_name)
         dest_img_dir = os.path.join(output_base_dir, split, "images", group_folder)
         os.makedirs(dest_img_dir, exist_ok=True)
-        #Rename the image with its unique image id
 
         dest_img_filename = original_filename
         dest_img_path = os.path.join(dest_img_dir, dest_img_filename)
