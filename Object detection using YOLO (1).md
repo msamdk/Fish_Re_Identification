@@ -166,4 +166,100 @@ if __name__ == "__main__":
     process_dataset(coco_path, image_groups_dir, output_base_dir)
 
 ```
+Combined training (Separated abd touched configurations images together)
+```python
+from ultralytics import YOLO
+model = YOLO("yolo11m.pt")
+```
+```python
+from ultralytics import YOLO
+import os
+import pandas as pd
+
+
+data_path = f"/work3/msam/Thesis/yolodataset/dataset.yaml"  
+output_dir = f"/work3/msam/Thesis/yolodataset/results" 
+os.makedirs(output_dir, exist_ok=True)
+
+# hyperameters
+model_path = "yolo11m.pt"  # YOLOv11 extra large model
+epochs = 300  # Fine-tuning epochs
+learning_rate = 0.001  # Fine-tuning learning rate
+batch_size = 32  # Batch size
+img_size = 640 
+optimizer = "Adam" # Image size
+
+#Initialize the model
+if not os.path.exists(model_path):
+    raise FileNotFoundError(f"Model file not found at {model_path}")
+model = YOLO(model_path)
+
+#output path for naming the folder with hperparameter configurations
+config_name = f"xlarge_finetune_epoch{epochs}_batch{batch_size}__lr{learning_rate}"
+config_output_dir = os.path.join(output_dir, config_name)
+os.makedirs(config_output_dir, exist_ok=True)
+
+#model training
+print(f"Fine-tuning medium model with epochs={epochs}, lr={learning_rate}, batch={batch_size}, img_size={img_size}")
+try:
+    model.train(
+        data=data_path,
+        epochs=epochs,
+        imgsz=img_size,
+        device=0,  # Use GPU
+        batch=batch_size,
+        lr0=learning_rate,
+        optimizer=optimizer,# Learning rate
+        project=config_output_dir,  # Save results in the fine-tuning folder
+        name="finetune_results"
+    )
+    print(f"Fine-tuning completed for medium model. Extracting metrics...")
+except Exception as e:
+    print(f"Training failed: {e}")
+
+# Validate the model and extract results
+results = model.val(
+    data=data_path,
+    imgsz=img_size,
+    save_json=True,  # Save predictions in COCO-JSON format
+    save_conf=True,  # Save confidence scores
+    conf=0.5,  # Confidence threshold
+    save=True  # Save predictions
+)
+
+# Extract metrics
+metrics = {
+    "precision": results.box.mp,  # Mean precision
+    "recall": results.box.mr,  # Mean recall
+    "mAP50": results.box.map50,  # mAP at IoU=0.50
+    "mAP50-95": results.box.map  # mAP at IoU=0.50-0.95
+}
+
+#Save metrics to a CSV file
+metrics_df = pd.DataFrame([metrics])
+metrics_csv_path = os.path.join(config_output_dir, 'metrics.csv')
+metrics_df.to_csv(metrics_csv_path, index=False)
+print(f"Metrics saved to {metrics_csv_path}")
+
+#Extract confusion matrix
+confusion_matrix = results.confusion_matrix
+
+#Convert confusion matrix to a DataFrame and save if available
+if hasattr(confusion_matrix, 'matrix'):
+    cm_data = confusion_matrix.matrix
+    cm_df = pd.DataFrame(cm_data)
+    cm_csv_path = os.path.join(config_output_dir, 'confusion_matrix.csv')
+    cm_df.to_csv(cm_csv_path, index=False)
+    print(f"Confusion matrix saved to {cm_csv_path}")
+else:
+    print("Warning: Confusion matrix is not in the expected format. Skipping saving.")
+
+# Free GPU memory
+del model
+import torch
+torch.cuda.empty_cache()
+
+print(f"All results and metrics saved in {config_output_dir}.")
+```
+
 
