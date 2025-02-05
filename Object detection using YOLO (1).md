@@ -258,7 +258,7 @@ torch.cuda.empty_cache()
 print(f"All results and metrics saved in {config_output_dir}.")
 ```
 
-Training results (YOLO v11 detection modep medium architecture
+Validation/performance metrics for each class (YOLO v11 detection modep medium architecture
 ```text
                  Class     Images  Instances      Box(P          R      mAP50  mAP50-95)
                    all        300       3639      0.972      0.957      0.968      0.943
