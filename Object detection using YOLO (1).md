@@ -4,27 +4,19 @@
 
 Before training, we should rearrange the Autofish dataset to be compatible with the YOLO models.
 As i discussed in the Data exploration section, the COCO annotation configuration is quiet different from the YOLO configuration. 
-The images and the annotations were converted to YOLO compatible structure while maintaining the oroginal image groups structure. The exact train, val and test split was follwed as the paper 
+The images and the annotations were converted to YOLO compatible structure while maintaining the oroginal image groups structure. The exact train, val and test split was follwed as the following paper. 
 
 ## Citation
-
-If you use this repository in your research, please cite the following paper:
-
-> **Doe, J., & Smith, J.** (2023). *An Innovative Approach to XYZ*. Journal of Example Studies, 12(3). DOI: [10.1234/example.doi](https://doi.org/10.1234/example.doi)
-
-<details>
-  <summary>View BibTeX entry</summary>
-
-```bibtex
-@article{doe2023innovative,
-  title={An Innovative Approach to XYZ},
-  author={Doe, John and Smith, Jane},
-  journal={Journal of Example Studies},
-  volume={12},
-  number={3},
-  year={2023},
-  doi={10.1234/example.doi}
+@misc{bengtson2025autofishdatasetbenchmarkfinegrained,
+      title={AutoFish: Dataset and Benchmark for Fine-grained Analysis of Fish}, 
+      author={Stefan Hein Bengtson and Daniel Lehotský and Vasiliki Ismiroglou and Niels Madsen and Thomas B. Moeslund and Malte Pedersen},
+      year={2025},
+      eprint={2501.03767},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2501.03767}, 
 }
+
 
 This section is for training with bounding boxes
 
