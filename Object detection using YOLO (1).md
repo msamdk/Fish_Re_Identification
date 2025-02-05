@@ -27,7 +27,7 @@ The images and the annotations were converted to YOLO compatible structure while
 </details>
 
 <h2>Training with bounding boxes</h2>
-The code is for the compete process of importing the dataset, modifying the annotations and preparing the YOLO compatible data structure in a different directory
+The code is for the compete process of importing the dataset, modifying the annotations and preparing the YOLO compatible data structure in a different directory. The filenames were not changed because YOLO is okay with the same file name in diffrerent directories.
 
 
 ```python
