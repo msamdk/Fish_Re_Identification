@@ -22,7 +22,7 @@ The images and the annotations were converted to YOLO compatible structure while
    year = {2025},
 }
 ```
-
+------
 This section is for training with bounding boxes
 The code is for the compete process of importing the dataset, modifying the annotations and preparing the YOLO compatible data structure in a different directory
 
