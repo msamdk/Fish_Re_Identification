@@ -260,7 +260,8 @@ print(f"All results and metrics saved in {config_output_dir}.")
 
 Training results (YOLO v11 detection modep medium architecture
 ```text
-       all        300       3639      0.972      0.957      0.968      0.943
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95)
+                   all        300       3639      0.972      0.957      0.968      0.943
         horse_mackerel        220        360      0.983      0.978      0.982       0.96
                whiting        260        800      0.962      0.975      0.973      0.954
                haddock        300       1160      0.972      0.967      0.975      0.953
