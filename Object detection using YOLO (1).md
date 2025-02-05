@@ -258,4 +258,15 @@ torch.cuda.empty_cache()
 print(f"All results and metrics saved in {config_output_dir}.")
 ```
 
+Training results (YOLO v11 detection modep medium architecture
+```text
+       all        300       3639      0.972      0.957      0.968      0.943
+        horse_mackerel        220        360      0.983      0.978      0.982       0.96
+               whiting        260        800      0.962      0.975      0.973      0.954
+               haddock        300       1160      0.972      0.967      0.975      0.953
+                   cod        260        839      0.978      0.962      0.969      0.933
+                  hake        220        360      0.989      0.981      0.991      0.971
+                saithe         80         80      0.946      0.963      0.955      0.929
+                 other         40         40      0.972      0.874      0.932        0.9
 
+```
