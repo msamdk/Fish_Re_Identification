@@ -22,8 +22,9 @@ The images and the annotations were converted to YOLO compatible structure while
    url = {http://arxiv.org/abs/2501.03767},
    year = {2025},
 }
-</details>
+
 ```
+</details>
 
 This section is for training with bounding boxes
 The code is for the compete process of importing the dataset, modifying the annotations and preparing the YOLO compatible data structure in a different directory
