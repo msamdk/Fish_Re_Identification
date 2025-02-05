@@ -172,7 +172,7 @@ from ultralytics import YOLO
 model = YOLO("yolo11m.pt")
 ```
 ```python
-from ultralytics import YOLO
+
 import os
 import pandas as pd
 
