@@ -6,16 +6,6 @@ Before training, we should rearrange the Autofish dataset to be compatible with 
 As i discussed in the Data exploration section, the COCO annotation configuration is quiet different from the YOLO configuration. The image arrangement also have to be changed according to the YOLO model compatibility.
 Here i deployed following steps to rearrange the dataset
 
-- Duplicating and renaming images with unique IDs
-- Organizing images and annotations into a YOLO-compatible folder structure
-- Converting COCO annotations to YOLO format
-- Training YOLO models on the processed dataset
-
-## **📂 YOLO-Compatible Folder Structure**
-
-<img src="images/yolofolder.png" alt="Alt text" width="500">
-
-The model training is done from the HPC server of DTU and the dataset and outputs is stored in the work3 directory
 
 ```python
 
@@ -131,101 +121,5 @@ names:
 
 
 process_dataset(coco_path, image_groups_dir, output_base_dir)
-```
-
-Now the model training using YOLO pretrained model
-```python
-from ultralytics import YOLO
-
-# Load a COCO-pretrained YOLO11n model
-model = YOLO("yolo11n.pt")
-
-import os
-import pandas as pd
-
-#paths and directories
-data_path = f"/work3/msam/Thesis/autofish/YOLO/data_source.yml"  # Path to dataset
-output_dir = f"/work3/msam/Thesis/autofish/YOLO_results/"  # Directory to save fine-tuning results
-os.makedirs(output_dir, exist_ok=True)
-
-#Model configuration
-model_path = "yolo11n.pt"  # YOLOv11 nano model for testing
-epochs = 200  
-learning_rate = 0.001  
-batch_size = 32  
-img_size = 640 
-optimizer = "Adam" 
-
-#Initialize the model
-if not os.path.exists(model_path):
-    raise FileNotFoundError(f"Model file not found at {model_path}")
-model = YOLO(model_path)
-
-#Set output path for this specific fine-tuning configuration
-config_name = f"xlarge_finetune_epoch{epochs}_batch{batch_size}__lr{learning_rate}"
-config_output_dir = os.path.join(output_dir, config_name)
-os.makedirs(config_output_dir, exist_ok=True)
-
-#Training the model with hyperparameters
-print(f"Fine-tuning xlarge model with epochs={epochs}, lr={learning_rate}, batch={batch_size}, img_size={img_size}")
-try:
-    model.train(
-        data=data_path,
-        epochs=epochs,
-        imgsz=img_size,
-        device=0,  # Use GPU
-        batch=batch_size,
-        lr0=learning_rate,
-        optimizer=optimizer,# Learning rate
-        project=config_output_dir,  
-        name="finetune_results"
-    )
-    print(f"Fine-tuning completed for xlarge model. Extracting metrics...")
-except Exception as e:
-    print(f"Training failed: {e}")
-
-#Validate the model and extract results
-results = model.val(
-    data=data_path,
-    imgsz=img_size,
-    save_json=True,  #Save predictions in COCO-JSON format
-    save_conf=True,  #Save confidence scores
-    conf=0.5,  # Confidence threshold
-    save=True  # Save predictions
-)
-
-#Extract metrics
-metrics = {
-    "precision": results.box.mp,  # Mean precision
-    "recall": results.box.mr,  # Mean recall
-    "mAP50": results.box.map50,  # mAP at IoU=0.50
-    "mAP50-95": results.box.map  # mAP at IoU=0.50-0.95
-}
-
-#Save metrics to a CSV file
-metrics_df = pd.DataFrame([metrics])
-metrics_csv_path = os.path.join(config_output_dir, 'metrics.csv')
-metrics_df.to_csv(metrics_csv_path, index=False)
-print(f"Metrics saved to {metrics_csv_path}")
-
-#confusion matrix
-confusion_matrix = results.confusion_matrix
-
-#Convert confusion matrix to a DataFrame and save if available
-if hasattr(confusion_matrix, 'matrix'):
-    cm_data = confusion_matrix.matrix
-    cm_df = pd.DataFrame(cm_data)
-    cm_csv_path = os.path.join(config_output_dir, 'confusion_matrix.csv')
-    cm_df.to_csv(cm_csv_path, index=False)
-    print(f"Confusion matrix saved to {cm_csv_path}")
-else:
-    print("Warning: Confusion matrix is not in the expected format. Skipping saving.")
-
-#Free GPU memory
-del model
-import torch
-torch.cuda.empty_cache()
-
-print(f"All results and metrics saved in {config_output_dir}.")
 ```
 
