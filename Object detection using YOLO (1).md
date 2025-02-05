@@ -7,8 +7,9 @@ As i discussed in the Data exploration section, the COCO annotation configuratio
 The images and the annotations were converted to YOLO compatible structure while maintaining the oroginal image groups structure. The exact train, val and test split was follwed according to the below paper. 
 
 ## Citation
-
-> **Bengtson, S. H., Lehotský, D., Ismiroglou, V., Madsen, N., Moeslund, T. B., & Pedersen, M. (2025).** *AutoFish: Dataset and Benchmark for Fine-grained Analysis of Fish.* [http://arxiv.org/abs/2501.03767](http://arxiv.org/abs/2501.03767)
+> **Bengtson, S. H., Lehotský, D., Ismiroglou, V., Madsen, N., Moeslund, T. B., & Pedersen, M. (2025).**  
+> *AutoFish: Dataset and Benchmark for Fine-grained Analysis of Fish.*  
+> [http://arxiv.org/abs/2501.03767](http://arxiv.org/abs/2501.03767)
 
 <details>
   <summary>View BibTeX entry</summary>
@@ -21,8 +22,9 @@ The images and the annotations were converted to YOLO compatible structure while
    url = {http://arxiv.org/abs/2501.03767},
    year = {2025},
 }
+
 ```
-------
+
 This section is for training with bounding boxes
 The code is for the compete process of importing the dataset, modifying the annotations and preparing the YOLO compatible data structure in a different directory
 
