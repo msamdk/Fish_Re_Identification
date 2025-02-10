@@ -163,6 +163,7 @@ if __name__ == "__main__":
 
 ```
 Combined training (Separated abd touched configurations images together)
+Here the training will is done using medium architecture of YOLO object detection model
 ```python
 from ultralytics import YOLO
 model = YOLO("yolo11m.pt")
@@ -178,7 +179,7 @@ output_dir = f"/work3/msam/Thesis/yolodataset/results"
 os.makedirs(output_dir, exist_ok=True)
 
 # hyperameters
-model_path = "yolo11m.pt"  # YOLOv11 extra large model
+model_path = "yolo11m.pt"  # YOLOv11 mediumlarge model
 epochs = 300  # Fine-tuning epochs
 learning_rate = 0.001  # Fine-tuning learning rate
 batch_size = 32  # Batch size
