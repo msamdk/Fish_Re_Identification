@@ -169,3 +169,49 @@ task: segment
 if __name__ == "__main__":
     process_dataset(coco_path, image_groups_dir, output_base_dir)
 ```
+Check if the conversion is good in the YOLO format
+```python
+#confirming the masks are okay
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from PIL import Image
+
+# path for the random selected image
+image_path = f"/work3/msam/Thesis/segmentation/yolodataset_seg/train/images/group_02/00001.png" 
+label_path = f"/work3/msam/Thesis/segmentation/yolodataset_seg/train/labels/group_02/00001.txt" 
+
+# Open the image using PIL and get its size
+image = Image.open(image_path)
+width, height = image.size
+
+# Create a figure and axis
+fig, ax = plt.subplots(1)
+ax.imshow(image)
+
+# Read the YOLO label file
+with open(label_path, 'r') as f:
+    for line in f:
+        line = line.strip()
+        if not line:
+            continue
+
+        parts = line.split()
+        category_id = int(parts[0])  # Use as needed
+        coords = list(map(float, parts[1:]))
+
+        # Convert normalized coordinates to pixel coordinates and build the polygon points
+        polygon_points = []
+        for i in range(0, len(coords), 2):
+            x_pixel = coords[i] * width
+            y_pixel = coords[i + 1] * height
+            polygon_points.append((x_pixel, y_pixel))
+
+        # Create and add the polygon patch to the axis
+        polygon = patches.Polygon(polygon_points, closed=True, fill=True, edgecolor='yellow', linewidth=2)
+        ax.add_patch(polygon)
+
+# Display the image with the overlaid polygons
+plt.title("YOLO Segmentation ")
+plt.axis('off')
+plt.show()
+```
