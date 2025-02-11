@@ -165,6 +165,7 @@ if __name__ == "__main__":
 ```
 Combined training (Separated abd touched configurations images together)
 Here the training will is done using medium architecture of YOLO object detection model
+ All model architectures were tested (n,s,m,l and xl) to see how the performance vary according to the Model architecture
 ```python
 from ultralytics import YOLO
 model = YOLO("yolo11m.pt")
@@ -272,4 +273,96 @@ Validation/performance metrics for each class (YOLO v11 detection modep medium a
                 saithe         80         80      0.946      0.963      0.955      0.929
                  other         40         40      0.972      0.874      0.932        0.9
 
+```
+
+ ## Training the YOLO models for the separate configuration
+ Here the First 40 images were taken from each image group from the train/val split
+ All model architectures were tested (n,s,m,l and xl) to see how the performance vary according to the Model architecture
+ The same code was applied to the touched configuration (images 41-60)
+```python
+#training the separated configuration (first 40 images)
+import os
+import glob
+import yaml
+
+# Dataset directories
+base_dataset_dir = "/work3/msam/Thesis/yolodataset2"
+dataset_yaml_path = os.path.join(base_dataset_dir, "dataset_filtered.yaml")
+
+# Function to get first 40 images per group for a given split (train/val/test)
+def get_first_40_images(split):
+    images_dir = os.path.join(base_dataset_dir, split, "images")
+    selected_images = []
+
+    for group in sorted(os.listdir(images_dir)):  # Iterate over group folders
+        group_path = os.path.join(images_dir, group)
+
+        if os.path.isdir(group_path):
+            image_files = sorted(glob.glob(os.path.join(group_path, "*.jpg")) +
+                                 glob.glob(os.path.join(group_path, "*.png")))
+
+            # Take only the first 40 images
+            selected_images.extend(image_files[:40])
+
+    return selected_images
+
+# Get filtered images for train, val, and test
+train_images = get_first_40_images("train")
+val_images = get_first_40_images("val")
+test_images = get_first_40_images("test")
+
+# Save train, val, and test image lists to text files (with the absolute paths of filtered images)
+def save_image_list(image_list, file_path):
+    with open(file_path, "w") as f:
+        f.write("\n".join(image_list))
+    print(f"Saved image list to {file_path}")
+
+train_txt = os.path.join(base_dataset_dir, "train.txt")
+val_txt = os.path.join(base_dataset_dir, "val.txt")
+test_txt = os.path.join(base_dataset_dir, "test.txt")
+
+save_image_list(train_images, train_txt)
+save_image_list(val_images, val_txt)
+save_image_list(test_images, test_txt)
+
+# Create dataset.yaml for YOLO training
+dataset_yaml = {
+    "path": base_dataset_dir,
+    "train": train_txt,  # Pointing to the text file instead of listing images
+    "val": val_txt,
+    "test": test_txt,
+    "names": {
+        0: "horse_mackerel",
+        1: "whiting",
+        2: "haddock",
+        3: "cod",
+        4: "hake",
+        5: "saithe",
+        6: "other"
+    }
+}
+
+# Save the filtered dataset.yaml file
+with open(dataset_yaml_path, "w") as f:
+    yaml.dump(dataset_yaml, f)
+
+print(f"Filtered dataset YAML saved at {dataset_yaml_path}")
+
+# Train YOLO model using the filtered dataset
+from ultralytics import YOLO
+model = YOLO("yolo11m.pt")  # Use your YOLO model file
+
+model.train(
+    data=dataset_yaml_path,
+    epochs=300,
+    imgsz=640,
+    device=0,  # Use GPU
+    batch=32,
+    lr0=0.001,
+    optimizer="Adam",
+    project=os.path.join(base_dataset_dir, "results"),
+    name="finetune_results"
+)
+
+print("Training completed.")
 ```
