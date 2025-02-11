@@ -410,4 +410,4 @@ model.train(
 
 print("Training completed.")
 ```
-<img src="images/yolo conversion.png" alt="Alt text" width="200">
+<img src="images/yolo conversion.png" alt="Alt text" width="400">
