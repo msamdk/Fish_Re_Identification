@@ -166,113 +166,156 @@ if __name__ == "__main__":
 Combined training (Separated abd touched configurations images together)
 Here the training will is done using medium architecture of YOLO object detection model.
 
+- To get in pace with the training with the Autofish paper, 10 random model initializations were done to calculate the statistics.
 - All model architectures were tested (n,s,m,l and xl) to see how the performance vary according to the Model architecture
+- 
 ```python
 from ultralytics import YOLO
 model = YOLO("yolo11m.pt")
+#loaded all the architectures first in the same way to the working directory
 ```
 ```python
 
+#combined configuration
+from ultralytics import YOLO
 import os
 import pandas as pd
+import numpy as np
+import torch
+from typing import Dict, List
 
-
-data_path = f"/work3/msam/Thesis/yolodataset/dataset.yaml"  
-output_dir = f"/work3/msam/Thesis/yolodataset/results" 
+# paths for the directories
+data_path = f"/work3/msam/Thesis/yolodataset2/dataset.yaml"
+output_dir = f"/work3/msam/Thesis/yolodataset2/results_combined_conf"
 os.makedirs(output_dir, exist_ok=True)
 
-# hyperameters
-model_path = "yolo11m.pt"  # YOLOv11 mediumlarge model
-epochs = 300  # Fine-tuning epochs
-learning_rate = 0.001  # Fine-tuning learning rate
-batch_size = 32  # Batch size
-img_size = 640 
-optimizer = "Adam" # Image size
-
-#Initialize the model
-if not os.path.exists(model_path):
-    raise FileNotFoundError(f"Model file not found at {model_path}")
-model = YOLO(model_path)
-
-#output path for naming the folder with hperparameter configurations
-config_name = f"xlarge_finetune_epoch{epochs}_batch{batch_size}__lr{learning_rate}"
-config_output_dir = os.path.join(output_dir, config_name)
-os.makedirs(config_output_dir, exist_ok=True)
-
-#model training
-print(f"Fine-tuning medium model with epochs={epochs}, lr={learning_rate}, batch={batch_size}, img_size={img_size}")
-try:
-    model.train(
-        data=data_path,
-        epochs=epochs,
-        imgsz=img_size,
-        device=0,  # Use GPU
-        batch=batch_size,
-        lr0=learning_rate,
-        optimizer=optimizer,# Learning rate
-        project=config_output_dir,  # Save results in the fine-tuning folder
-        name="finetune_results"
-    )
-    print(f"Fine-tuning completed for medium model. Extracting metrics...")
-except Exception as e:
-    print(f"Training failed: {e}")
-
-# Validate the model and extract results
-results = model.val(
-    data=data_path,
-    imgsz=img_size,
-    save_json=True,  # Save predictions in COCO-JSON format
-    save_conf=True,  # Save confidence scores
-    conf=0.5,  # Confidence threshold
-    save=True  # Save predictions
-)
-
-# Extract metrics
-metrics = {
-    "precision": results.box.mp,  # Mean precision
-    "recall": results.box.mr,  # Mean recall
-    "mAP50": results.box.map50,  # mAP at IoU=0.50
-    "mAP50-95": results.box.map  # mAP at IoU=0.50-0.95
+# YOLO architectures for training
+yolo_architectures = {
+    "nano": "yolo11n.pt",
+    "small": "yolo11s.pt",
+    "medium": "yolo11m.pt",
+    "large": "yolo11l.pt",
+    "extra_large": "yolo11x.pt"
 }
 
-#Save metrics to a CSV file
-metrics_df = pd.DataFrame([metrics])
-metrics_csv_path = os.path.join(config_output_dir, 'metrics.csv')
-metrics_df.to_csv(metrics_csv_path, index=False)
-print(f"Metrics saved to {metrics_csv_path}")
+# Thyperparameters configutation
+hyperparameters = {
+    "epochs": 300,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "img_size": 640,
+    "optimizer": "Adam",
+    "n_initializations": 10  # Number of random initializations as in the paper
+}
 
-#Extract confusion matrix
-confusion_matrix = results.confusion_matrix
+def train_and_validate_model(model_path: str, config_output_dir: str, seed: int) -> Dict:
+    """Train and validate a single model initialization"""
+    torch.manual_seed(seed)  # Set random seed for reproducibility
+    model = YOLO(model_path)
+    
+    # Train model
+    model.train(
+        data=data_path,
+        epochs=hyperparameters['epochs'],
+        imgsz=hyperparameters['img_size'],
+        device=0,
+        batch=hyperparameters['batch_size'],
+        lr0=hyperparameters['learning_rate'],
+        optimizer=hyperparameters['optimizer'],
+        project=config_output_dir,
+        name=f"init_{seed}"
+    )
+    
+    # Validate model
+    results = model.val(
+        data=data_path,
+        imgsz=hyperparameters['img_size'],
+        save_json=True,
+        save_conf=True,
+        conf=0.5,
+        save=True
+    )
+    
+    # Clean up GPU memory
+    del model
+    torch.cuda.empty_cache()
+    
+    return {
+        "mAP50": results.box.map50,
+        "mAP50-95": results.box.map,
+        "precision": results.box.mp,
+        "recall": results.box.mr
+    }
 
-#Convert confusion matrix to a DataFrame and save if available
-if hasattr(confusion_matrix, 'matrix'):
-    cm_data = confusion_matrix.matrix
-    cm_df = pd.DataFrame(cm_data)
-    cm_csv_path = os.path.join(config_output_dir, 'confusion_matrix.csv')
-    cm_df.to_csv(cm_csv_path, index=False)
-    print(f"Confusion matrix saved to {cm_csv_path}")
-else:
-    print("Warning: Confusion matrix is not in the expected format. Skipping saving.")
+#calculating standard error
+def calculate_statistics(metrics_list: List[Dict]) -> Dict:
+    """Calculate mean and standard error for metrics"""
+    metrics_array = np.array([[m[key] for key in metrics_list[0].keys()] for m in metrics_list])
+    means = np.mean(metrics_array, axis=0)
+    std_errors = np.std(metrics_array, axis=0) / np.sqrt(len(metrics_list))
+    
+    return {
+        "mAP50_mean": means[0],
+        "mAP50_error": std_errors[0],
+        "mAP50-95_mean": means[1],
+        "mAP50-95_error": std_errors[1],
+        "precision_mean": means[2],
+        "precision_error": std_errors[2],
+        "recall_mean": means[3],
+        "recall_error": std_errors[3]
+    }
 
-# Free GPU memory
-del model
-import torch
-torch.cuda.empty_cache()
+# Main training loop
+all_results = []
+for arch_name, model_path in yolo_architectures.items():
+    print(f"\n{'='*50}")
+    print(f"Training {arch_name.upper()} architecture")
+    print(f"{'='*50}")
+    
+    if not os.path.exists(model_path):
+        print(f"Warning: Model file not found at {model_path}. Skipping...")
+        continue
+    
+    config_name = f"{arch_name}_HPC_JOB1{hyperparameters['epochs']}_batch{hyperparameters['batch_size']}_lr{hyperparameters['learning_rate']}"
+    config_output_dir = os.path.join(output_dir, config_name)
+    os.makedirs(config_output_dir, exist_ok=True)
+    
+    # Run multiple initializations
+    initialization_results = []
+    for init in range(hyperparameters['n_initializations']):
+        print(f"\nRunning initialization {init + 1}/{hyperparameters['n_initializations']}")
+        try:
+            metrics = train_and_validate_model(model_path, config_output_dir, seed=init)
+            initialization_results.append(metrics)
+        except Exception as e:
+            print(f"Error in initialization {init}: {e}")
+    
+    # Calculate statistics
+    if initialization_results:
+        stats = calculate_statistics(initialization_results)
+        stats['architecture'] = arch_name
+        all_results.append(stats)
+        
+        # Save individual initialization results
+        init_df = pd.DataFrame(initialization_results)
+        init_df.to_csv(os.path.join(config_output_dir, 'initialization_results.csv'), index=False)
+        
+        # Save summary statistics
+        stats_df = pd.DataFrame([stats])
+        stats_df.to_csv(os.path.join(config_output_dir, 'summary_statistics.csv'), index=False)
 
-print(f"All results and metrics saved in {config_output_dir}.")
+# Save combined results
+if all_results:
+    combined_df = pd.DataFrame(all_results)
+    combined_df.to_csv(os.path.join(output_dir, 'combined_results_with_errors.csv'), index=False)
+    print("\nTraining completed! Final results:")
+    print(combined_df)
+
 ```
 
 Validation/performance metrics for each class (YOLO v11 detection modep medium architecture
 ```text
-                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95)
-                   all        300       3639      0.972      0.957      0.968      0.943
-        horse_mackerel        220        360      0.983      0.978      0.982       0.96
-               whiting        260        800      0.962      0.975      0.973      0.954
-               haddock        300       1160      0.972      0.967      0.975      0.953
-                   cod        260        839      0.978      0.962      0.969      0.933
-                  hake        220        360      0.989      0.981      0.991      0.971
-                saithe         80         80      0.946      0.963      0.955      0.929
-                 other         40         40      0.972      0.874      0.932        0.9
+                
 
 ```
 
