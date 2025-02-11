@@ -164,8 +164,9 @@ if __name__ == "__main__":
 
 ```
 Combined training (Separated abd touched configurations images together)
-Here the training will is done using medium architecture of YOLO object detection model
- All model architectures were tested (n,s,m,l and xl) to see how the performance vary according to the Model architecture
+Here the training will is done using medium architecture of YOLO object detection model.
+
+- All model architectures were tested (n,s,m,l and xl) to see how the performance vary according to the Model architecture
 ```python
 from ultralytics import YOLO
 model = YOLO("yolo11m.pt")
