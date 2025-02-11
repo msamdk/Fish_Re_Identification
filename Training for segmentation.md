@@ -2,6 +2,8 @@
 
 <img src="images/group_01.png" alt="Alt text" width="1500">
 <img src="images/COCOtoYOLO.png" alt="Alt text" width="1500">
+
+
 ## COCO format provides 
 - segmentation masks as polygons using absolute pixel coordinates  
 - uses JSON format with a list of (x,y) points that form the contour
