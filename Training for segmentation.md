@@ -1,7 +1,6 @@
 # Training YOLO-segementation models for the segmentation masks in the annotations
 
-<img src="images/group_01.png" alt="Alt text" width="1500">
-
+<img src="images/COCOtoYOLO.png" alt="Alt text" width="1500">
 
 
 ## COCO format provides 
@@ -15,7 +14,6 @@
 - format per line class_id x1 y1 x2 y2 ... xn yn
 - coordinates are normalized by image width and height
   
-<img src="images/COCOtoYOLO.png" alt="Alt text" width="1500">
 
 
 ## steps for the trainins
@@ -215,3 +213,4 @@ plt.title("YOLO Segmentation ")
 plt.axis('off')
 plt.show()
 ```
+<img src="images/yolo conversion.png" alt="Alt text" width="400">
