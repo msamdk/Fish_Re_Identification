@@ -278,8 +278,8 @@ Validation/performance metrics for each class (YOLO v11 detection modep medium a
 
  ## Training the YOLO models for the separate configuration
  Here the First 40 images were taken from each image group from the train/val split
- All model architectures were tested (n,s,m,l and xl) to see how the performance vary according to the Model architecture
- The same code was applied to the touched configuration (images 41-60)
+ - All model architectures were tested (n,s,m,l and xl) to see how the performance vary according to the Model architecture
+ - The same code was applied to the touched configuration (images 41-60)
 ```python
 #training the separated configuration (first 40 images)
 import os
