@@ -175,142 +175,133 @@ model = YOLO("yolo11m.pt")
 #loaded all the architectures first in the same way to the working directory
 ```
 ```python
-
-#combined configuration
+#training the combined configuration for the total dataset
 from ultralytics import YOLO
 import os
 import pandas as pd
-import numpy as np
 import torch
-from typing import Dict, List
 
-# paths for the directories
-data_path = f"/work3/msam/Thesis/yolodataset2/dataset.yaml"
-output_dir = f"/work3/msam/Thesis/yolodataset2/results_combined_conf"
+# Base paths
+data_path = f"/work3/msam/Thesis/yolodataset/dataset.yaml"
+output_dir = f"/work3/msam/Thesis/yolodataset/results"
 os.makedirs(output_dir, exist_ok=True)
 
-# YOLO architectures for training
+# Define all YOLOv11 architectures
 yolo_architectures = {
-    "nano": "yolo11n.pt",
-    "small": "yolo11s.pt",
-    "medium": "yolo11m.pt",
-    "large": "yolo11l.pt",
-    "extra_large": "yolo11x.pt"
+    "nano": "yolo11n.pt",      # Nano model
+    "small": "yolo11s.pt",     # Small model
+    "medium": "yolo11m.pt",    # Medium model
+    "large": "yolo11l.pt",     # Large model
+    "extra_large": "yolo11x.pt" # Extra Large model
 }
 
-# Thyperparameters configutation
+# Training hyperparameters
 hyperparameters = {
     "epochs": 300,
     "learning_rate": 0.001,
     "batch_size": 32,
     "img_size": 640,
-    "optimizer": "Adam",
-    "n_initializations": 10  # Number of random initializations as in the paper
+    "optimizer": "Adam"
 }
 
-def train_and_validate_model(model_path: str, config_output_dir: str, seed: int) -> Dict:
-    """Train and validate a single model initialization"""
-    torch.manual_seed(seed)  # Set random seed for reproducibility
-    model = YOLO(model_path)
-    
-    # Train model
-    model.train(
-        data=data_path,
-        epochs=hyperparameters['epochs'],
-        imgsz=hyperparameters['img_size'],
-        device=0,
-        batch=hyperparameters['batch_size'],
-        lr0=hyperparameters['learning_rate'],
-        optimizer=hyperparameters['optimizer'],
-        project=config_output_dir,
-        name=f"init_{seed}"
-    )
-    
-    # Validate model
-    results = model.val(
-        data=data_path,
-        imgsz=hyperparameters['img_size'],
-        save_json=True,
-        save_conf=True,
-        conf=0.5,
-        save=True
-    )
-    
-    # Clean up GPU memory
-    del model
-    torch.cuda.empty_cache()
-    
-    return {
-        "mAP50": results.box.map50,
-        "mAP50-95": results.box.map,
-        "precision": results.box.mp,
-        "recall": results.box.mr
-    }
-
-#calculating standard error
-def calculate_statistics(metrics_list: List[Dict]) -> Dict:
-    """Calculate mean and standard error for metrics"""
-    metrics_array = np.array([[m[key] for key in metrics_list[0].keys()] for m in metrics_list])
-    means = np.mean(metrics_array, axis=0)
-    std_errors = np.std(metrics_array, axis=0) / np.sqrt(len(metrics_list))
-    
-    return {
-        "mAP50_mean": means[0],
-        "mAP50_error": std_errors[0],
-        "mAP50-95_mean": means[1],
-        "mAP50-95_error": std_errors[1],
-        "precision_mean": means[2],
-        "precision_error": std_errors[2],
-        "recall_mean": means[3],
-        "recall_error": std_errors[3]
-    }
-
-# Main training loop
-all_results = []
+# Train each architecture
 for arch_name, model_path in yolo_architectures.items():
     print(f"\n{'='*50}")
     print(f"Training {arch_name.upper()} architecture")
     print(f"{'='*50}")
     
+    # Check if model exists
     if not os.path.exists(model_path):
         print(f"Warning: Model file not found at {model_path}. Skipping...")
         continue
     
+    # Initialize model
+    model = YOLO(model_path)
+    
+    # Create output directory for this architecture
     config_name = f"{arch_name}_HPC_JOB1{hyperparameters['epochs']}_batch{hyperparameters['batch_size']}_lr{hyperparameters['learning_rate']}"
     config_output_dir = os.path.join(output_dir, config_name)
     os.makedirs(config_output_dir, exist_ok=True)
     
-    # Run multiple initializations
-    initialization_results = []
-    for init in range(hyperparameters['n_initializations']):
-        print(f"\nRunning initialization {init + 1}/{hyperparameters['n_initializations']}")
-        try:
-            metrics = train_and_validate_model(model_path, config_output_dir, seed=init)
-            initialization_results.append(metrics)
-        except Exception as e:
-            print(f"Error in initialization {init}: {e}")
+    # Train model
+    print(f"Training {arch_name} model with:")
+    print(f"- Epochs: {hyperparameters['epochs']}")
+    print(f"- Learning Rate: {hyperparameters['learning_rate']}")
+    print(f"- Batch Size: {hyperparameters['batch_size']}")
+    print(f"- Image Size: {hyperparameters['img_size']}")
     
-    # Calculate statistics
-    if initialization_results:
-        stats = calculate_statistics(initialization_results)
-        stats['architecture'] = arch_name
-        all_results.append(stats)
+    try:
+        model.train(
+            data=data_path,
+            epochs=hyperparameters['epochs'],
+            imgsz=hyperparameters['img_size'],
+            device=0,  # Use GPU
+            batch=hyperparameters['batch_size'],
+            lr0=hyperparameters['learning_rate'],
+            optimizer=hyperparameters['optimizer'],
+            project=config_output_dir,
+            name="finetune_results"
+        )
+        print(f"Training completed for {arch_name} model")
         
-        # Save individual initialization results
-        init_df = pd.DataFrame(initialization_results)
-        init_df.to_csv(os.path.join(config_output_dir, 'initialization_results.csv'), index=False)
+        # Validate model
+        results = model.val(
+            data=data_path,
+            imgsz=hyperparameters['img_size'],
+            save_json=True,
+            save_conf=True,
+            conf=0.5,
+            save=True
+        )
         
-        # Save summary statistics
-        stats_df = pd.DataFrame([stats])
-        stats_df.to_csv(os.path.join(config_output_dir, 'summary_statistics.csv'), index=False)
+        # Save metrics
+        metrics = {
+            "architecture": arch_name,
+            "precision": results.box.mp,
+            "recall": results.box.mr,
+            "mAP50": results.box.map50,
+            "mAP50-95": results.box.map
+        }
+        
+        # Save metrics to CSV
+        metrics_df = pd.DataFrame([metrics])
+        metrics_csv_path = os.path.join(config_output_dir, 'metrics.csv')
+        metrics_df.to_csv(metrics_csv_path, index=False)
+        print(f"Metrics saved to {metrics_csv_path}")
+        
+        # Save confusion matrix
+        if hasattr(results.confusion_matrix, 'matrix'):
+            cm_data = results.confusion_matrix.matrix
+            cm_df = pd.DataFrame(cm_data)
+            cm_csv_path = os.path.join(config_output_dir, 'confusion_matrix.csv')
+            cm_df.to_csv(cm_csv_path, index=False)
+            print(f"Confusion matrix saved to {cm_csv_path}")
+        
+    except Exception as e:
+        print(f"Error training {arch_name} model: {e}")
+    
+    # Clean up GPU memory
+    del model
+    import torch
+    torch.cuda.empty_cache()
+    print(f"Completed training and evaluation for {arch_name} architecture")
 
-# Save combined results
-if all_results:
-    combined_df = pd.DataFrame(all_results)
-    combined_df.to_csv(os.path.join(output_dir, 'combined_results_with_errors.csv'), index=False)
-    print("\nTraining completed! Final results:")
-    print(combined_df)
+# Create combined metrics file
+combined_metrics = []
+for arch_name in yolo_architectures.keys():
+    config_name = f"{arch_name}_finetune_epoch{hyperparameters['epochs']}_batch{hyperparameters['batch_size']}_lr{hyperparameters['learning_rate']}"
+    metrics_path = os.path.join(output_dir, config_name, 'metrics.csv')
+    if os.path.exists(metrics_path):
+        metrics = pd.read_csv(metrics_path)
+        combined_metrics.append(metrics)
 
+if combined_metrics:
+    combined_df = pd.concat(combined_metrics, ignore_index=True)
+    combined_csv_path = os.path.join(output_dir, 'combined_metrics.csv')
+    combined_df.to_csv(combined_csv_path, index=False)
+    print(f"\nCombined metrics for all architectures saved to {combined_csv_path}")
+
+print("\nTraining completed for all architectures!")
 ```
 
 Validation/performance metrics for each class (YOLO v11 detection modep medium architecture
@@ -410,4 +401,7 @@ model.train(
 
 print("Training completed.")
 ```
+## Overall model performances in 3 configurations.
+Here only a single training run has been done to identify the model performance on the different configurations
+<img src="images/overall performance.png" alt="Alt text" width="1500">
 
