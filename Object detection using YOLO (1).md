@@ -403,5 +403,8 @@ print("Training completed.")
 ```
 ## Overall model performances in 3 configurations.
 Here only a single training run has been done to identify the model performance on the different configurations
+From this large architecture seems to perform well as an overall performer for bounding box classification task
+
+
 <img src="images/overall performance.png" alt="Alt text" width="1500">
 
