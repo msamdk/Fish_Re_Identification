@@ -585,3 +585,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
+
+```html
+<p float="left">
+  <img src="images/segmentation_results/confusion_matrix.png" width="300" />
+  <img src="images/segmentation_results/confusion_matrix_normalized.png" width="300" />
+</p>
+```
