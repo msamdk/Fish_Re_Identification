@@ -393,6 +393,17 @@ if __name__ == "__main__":
 <img src="images/segmentation_results/val_batch0_pred.jpg" alt="Alt text" width="1000">
 <img src="images/segmentation_results/val_batch1_pred.jpg" alt="Alt text" width="1000">
 
+<p align="center">
+  <img src="images/segmentation_results/confusion_matrix.png" alt="Val Labels batch 1" width="45%">
+  <img src="images/segmentation_results/confusion_matrix_normalized.png" alt="Val Predictions batch 1" width="45%">
+</p>
+
+<p align="center">
+  <b>Val Labels</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Val Predictions</b>
+</p>
+```
+
 # Testing the trained model performance using the test dataset
 
 Here the classwise performance was evaluated using the following performance metrics and calculated the relavent statistics (mean, SD, SE and Confidence intervals(95%)
@@ -587,13 +598,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<p align="center">
-  <img src="images/segmentation_results/confusion_matrix.png" alt="Val Labels batch 1" width="45%">
-  <img src="images/segmentation_results/confusion_matrix_normalized.png" alt="Val Predictions batch 1" width="45%">
-</p>
 
-<p align="center">
-  <b>Val Labels</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Val Predictions</b>
-</p>
-```
