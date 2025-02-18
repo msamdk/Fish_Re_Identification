@@ -399,8 +399,8 @@ if __name__ == "__main__":
 </p>
 
 <p align="center">
-  <b>Val Labels</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Val Predictions</b>
+  <b>Confusion matrix (instances) </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Normalized confusion matrix </b>
 </p>
 ```
 
