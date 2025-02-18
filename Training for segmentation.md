@@ -390,3 +390,5 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+<img src="images/segmentation_results/val_batch0_pred.jpg" alt="Alt text" width="500">
+<img src="images/segmentation_results/val_batch1_pred.jpg" alt="Alt text" width="500">
