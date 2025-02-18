@@ -424,6 +424,7 @@ from ultralytics import YOLO
 import yaml
 from datetime import datetime
 
+### Class names loading fuction
 # loading class 'names' from yaml file
 # mapping numeric class indices to actual class names
 # returns an empty list if 'names' isnt found
@@ -433,11 +434,10 @@ def load_class_names(yaml_path):
         data = yaml.safe_load(f)
         return data.get('names', [])
 
+### Model evaluation function
 # loads a custom trained YOLO model from the model path (best.pt)
 # Evaluate a single model initialization and return class-wise metrics.
 # retuns a dictionary containing metrics for each class, and all classes
-
-
 def evaluate_model(model_path, test_data_path):
     #path to the best.pt
     model = YOLO(model_path)
@@ -475,7 +475,7 @@ def evaluate_model(model_path, test_data_path):
     
     return metrics
 
-# function to calculate the confidence intervals (95%)
+### function to calculate the confidence intervals (95%)
 def calculate_confidence_interval(data, confidence=0.95):
     
     array = np.array(data) #converting the input to a numpy array for the numerical operations
@@ -498,7 +498,8 @@ def calculate_confidence_interval(data, confidence=0.95):
         'max': np.max(array)
     }
 
-## main function
+##### main function  ###########
+
 def main():
     # defining the Paths
     base_dir = Path('/work3/msam/Thesis/segmentation/multiple_init_results')
@@ -520,7 +521,7 @@ def main():
     # Dictionary to collect metrics for all initializations
     all_metrics = {}
     
-    # Evaluate each initialization
+    ## Evaluate each initialization
     print("\nStarting model evaluation across all initializations...")
     print("-" * 80)
 
@@ -551,7 +552,7 @@ def main():
         else:
             print(f"Warning: Model not found at {model_path}")
     
-    # Calculate statistics and confidence intervals
+    ## Calculate statistics and confidence intervals
     results = []
     for class_name, metrics in all_metrics.items():
         for metric_name, values in metrics.items():
