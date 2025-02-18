@@ -26,13 +26,13 @@ import os
 import shutil
 from pathlib import Path
 
-# Paths
+# Defining Paths
 coco_path = f"/work3/msam/Thesis/autofish/annotations.json"
 image_groups_dir = f"/work3/msam/Thesis/autofish"
 output_base_dir = f"/work3/msam/Thesis/segmentation/yolodataset_seg"  # Changed name for segmentation
 os.makedirs(output_base_dir, exist_ok=True)
 
-# Keeping your original split as paper
+# Keeping the original split as paper
 train_groups = {2, 3, 4, 5, 7, 8, 9, 12, 13, 15, 16, 18, 19, 23, 24}
 val_groups   = {1, 6, 11, 17, 25}
 test_groups  = {10, 14, 20, 21, 22}
@@ -42,6 +42,7 @@ for split in ["train", "val", "test"]:
     os.makedirs(os.path.join(output_base_dir, split, "images"), exist_ok=True)
     os.makedirs(os.path.join(output_base_dir, split, "labels"), exist_ok=True)
 
+### function to convert COCO format to YOLO format in segmentation masks
 def convert_segmentation_to_yolo(segmentation, img_width, img_height):
    
     # Get the polygon from segmentation
@@ -63,6 +64,7 @@ def convert_segmentation_to_yolo(segmentation, img_width, img_height):
     
     return normalized_coords
 
+### dataset processing function
 def process_dataset(coco_path, image_groups_dir, output_base_dir):
     # Load COCO annotations
     with open(coco_path, "r") as f:
@@ -223,7 +225,7 @@ The multi-step learning schedular was not used in here as the paper, instead i u
 ## Combined Configuration of fish (60 images per folder)
 
 ```python
-#combined configurations
+
 from ultralytics import YOLO
 import torch
 import os
@@ -232,13 +234,13 @@ import numpy as np
 from typing import Dict, List
 from datetime import datetime
 
-# Paths
+# Defining the Paths
 data_path = "/work3/msam/Thesis/segmentation/yolodataset_seg/dataset.yaml"
 model_path = "yolo11l-seg.pt"
 output_dir = "/work3/msam/Thesis/segmentation/multiple_init_results"
 os.makedirs(output_dir, exist_ok=True)
 
-# Training parameters
+# Defining Training parameters
 hyperparameters = {
     "epochs": 300,
     "batch_size": 32,
@@ -248,6 +250,7 @@ hyperparameters = {
     "n_initializations": 10
 }
 
+### Model training function
 def train_single_initialization(model_path: str, data_path: str, output_dir: str, seed: int) -> Dict:
     
     #Train a single initialization
@@ -316,7 +319,7 @@ def train_single_initialization(model_path: str, data_path: str, output_dir: str
             f.write(f"Error in initialization {seed}: {str(e)}\n")
         raise e
 
-#Calculate statistics across all initializations
+### Function to calculate statistics for overall performance in all random model initializations
 def calculate_statistics(results: List[Dict]) -> pd.DataFrame:
     
     df = pd.DataFrame(results)
@@ -336,6 +339,7 @@ def calculate_statistics(results: List[Dict]) -> pd.DataFrame:
     
     return pd.DataFrame(stats)
 
+### Main function
 def main():
     print("\nStarting Multiple Initialization Training")
     print("="*50)
