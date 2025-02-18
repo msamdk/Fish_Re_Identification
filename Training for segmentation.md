@@ -604,7 +604,7 @@ Here the mAP 50-95 is shown with the error margins
 
 Detailed results of the performance metrices with the respective 95% confidence intervals
 
-| Class_ID         | Precision                | Recall                   | mAP50                     | mAP50-95                    |
+| Class_ID         | Precision (95% CI)       | Recall (95% CI)          | mAP50 (95% CI)            | mAP50-95 (95% CI)           |
 |------------------|--------------------------|--------------------------|---------------------------|-----------------------------|
 | Overall          | 0.950 (0.945 - 0.956)    | 0.933 (0.928 - 0.938)    | 0.961 (0.959 - 0.963)     | 0.944 (0.942 - 0.946)       |
 | Horse Mackerel   | 0.967 (0.963 - 0.970)    | 0.956 (0.954 - 0.959)    | 0.971 (0.970 - 0.972)     | 0.958 (0.956 - 0.959)       |
