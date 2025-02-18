@@ -587,9 +587,13 @@ if __name__ == "__main__":
     main()
 ```
 
-```html
-<p float="left">
-  <img src="images/segmentation_results/confusion_matrix.png" width="300" />
-  <img src="images/segmentation_results/confusion_matrix_normalized.png" width="300" />
+<p align="center">
+  <img src="images/segmentation_results/confusion_matrix.png" alt="Val Labels batch 1" width="45%">
+  <img src="images/segmentation_results/confusion_matrix_normalized.png" alt="Val Predictions batch 1" width="45%">
+</p>
+
+<p align="center">
+  <b>Val Labels</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Val Predictions</b>
 </p>
 ```
