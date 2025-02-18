@@ -419,22 +419,30 @@ import os
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from scipy import stats
+from scipy import stats #calculating CI
 from ultralytics import YOLO
 import yaml
 from datetime import datetime
 
+# loading class 'names' from yaml file
+# mapping numeric class indices to actual class names
+# returns an empty list if 'names' isnt found
 def load_class_names(yaml_path):
     
     with open(yaml_path, 'r') as f:
         data = yaml.safe_load(f)
         return data.get('names', [])
 
+# loads a custom trained YOLO model from the model path (best.pt)
+# Evaluate a single model initialization and return class-wise metrics.
+# retuns a dictionary containing metrics for each class, and all classes
+
+
 def evaluate_model(model_path, test_data_path):
-    
+    #path to the best.pt
     model = YOLO(model_path)
     
-    # Run validation
+    # Run validation on test dataset
     results = model.val(
         data=test_data_path,
         conf=0.5,
@@ -467,18 +475,20 @@ def evaluate_model(model_path, test_data_path):
     
     return metrics
 
+# function to calculate the confidence intervals (95%)
 def calculate_confidence_interval(data, confidence=0.95):
     
-    array = np.array(data)
-    mean = np.mean(array)
+    array = np.array(data) #converting the input to a numpy array for the numerical operations
+    mean = np.mean(array) # mean calculation
     # Calculate confidence interval using t-distribution
     ci = stats.t.interval(
-        confidence,
-        len(array) - 1,
-        loc=mean,
-        scale=stats.sem(array)
+        confidence, #CI 95%
+        len(array) - 1, # df (number of samples-1)
+        loc=mean, # mean
+        scale=stats.sem(array) # SE of mean (SD/ sqrt of sample size)
     )
-    
+
+#returns a dictionary with necessary statistics
     return {
         'mean': mean,
         'ci_lower': ci[0],
@@ -488,8 +498,9 @@ def calculate_confidence_interval(data, confidence=0.95):
         'max': np.max(array)
     }
 
+## main function
 def main():
-    # Paths
+    # defining the Paths
     base_dir = Path('/work3/msam/Thesis/segmentation/multiple_init_results')
     test_data = '/work3/msam/Thesis/segmentation/yolodataset_seg/dataset.yaml'
     output_dir = Path('/work3/msam/Thesis/segmentation/test_evaluations')
@@ -498,7 +509,7 @@ def main():
     # Create a timestamp for unique file naming
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     
-    # Try to load class names
+    # Try to load class names from Yaml file
     try:
         class_names = load_class_names(test_data)
         print(f"Loaded class names: {class_names}")
@@ -512,7 +523,12 @@ def main():
     # Evaluate each initialization
     print("\nStarting model evaluation across all initializations...")
     print("-" * 80)
-    
+
+    ## model evaluation loop
+    # evaluates 10 model initializations
+    # collects metrics for each intialization
+    # steores results in nested disctionary
+
     for init in range(10):
         model_path = base_dir / f'init_{init}/init_{init}/weights/best.pt'
         print(f"\nProcessing initialization {init}")
