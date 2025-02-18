@@ -392,3 +392,196 @@ if __name__ == "__main__":
 ```
 <img src="images/segmentation_results/val_batch0_pred.jpg" alt="Alt text" width="1000">
 <img src="images/segmentation_results/val_batch1_pred.jpg" alt="Alt text" width="1000">
+
+# Testing the trained model performance using the test dataset
+
+Here the classwise performance was evaluated using the following performance metrics and calculated the relavent statistics (mean, SD, SE and Confidence intervals(95%)
+- Precision
+- Recall
+- mean average precision at 0.5 IOU (mAP50)
+- mean average precision at IOU 0.5 -0.95 (mAP50-95)
+
+
+
+```python
+import os
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+from ultralytics import YOLO
+import yaml
+from datetime import datetime
+
+def load_class_names(yaml_path):
+    # Load class names from YAML file
+    with open(yaml_path, 'r') as f:
+        data = yaml.safe_load(f)
+        return data.get('names', [])
+
+def evaluate_model(model_path, test_data_path):
+  
+    model = YOLO(model_path)
+    
+    # Run validation
+    results = model.val(data=test_data_path, 
+                       conf=0.5,
+                       iou=0.9,
+                       verbose=False)
+    
+    metrics = {}
+    
+    if hasattr(results, 'box'):
+        num_classes = len(results.box.ap_class_index)
+        
+        for i in range(num_classes):
+            # Get class-specific results
+            p, r, ap50, ap = results.box.class_result(i)
+            
+            class_name = f"class_{results.box.ap_class_index[i]}"
+            metrics[class_name] = {
+                'precision': float(p),
+                'recall': float(r),
+                'map50': float(ap50),
+                'map50_95': float(ap)
+            }
+            
+        # store mean metrics
+        metrics['all_classes'] = {
+            'precision': float(results.box.mp),
+            'recall': float(results.box.mr),
+            'map50': float(results.box.map50),
+            'map50_95': float(results.box.map)
+        }
+    
+    return metrics
+
+def calculate_confidence_interval(data, confidence=0.95):
+    
+    array = np.array(data)
+    mean = np.mean(array)
+    
+    # Calculate confidence interval using t-distribution
+    ci = stats.t.interval(confidence, 
+                         len(array)-1, 
+                         loc=mean, 
+                         scale=stats.sem(array))
+    
+    return {
+        'mean': mean,
+        'ci_lower': ci[0],
+        'ci_upper': ci[1],
+        'std': np.std(array),
+        'min': np.min(array),
+        'max': np.max(array)
+    }
+
+
+
+def main():
+    # Paths
+    base_dir = Path('/work3/msam/Thesis/segmentation/multiple_init_results')
+    test_data = '/work3/msam/Thesis/segmentation/yolodataset_seg/dataset.yaml'
+    output_dir = Path('/work3/msam/Thesis/segmentation/test_evaluations')
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Create timestamp for unique file names
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    # Try to load class names
+    try:
+        class_names = load_class_names(test_data)
+        print(f"Loaded class names: {class_names}")
+    except Exception as e:
+        print(f"Could not load class names: {e}")
+        class_names = []
+    
+    # Dictionary to collect metrics for all initializations
+    all_metrics = {}
+    
+    # Evaluate all initializations
+    print("\nStarting model evaluation across all initializations...")
+    print("-" * 80)
+    
+    for init in range(10):
+        model_path = base_dir / f'init_{init}/init_{init}/weights/best.pt'
+        print(f"\nProcessing initialization {init}")
+        print(f"Model path: {model_path}")
+        
+        if model_path.exists():
+            try:
+                metrics = evaluate_model(model_path, test_data)
+                
+                # Store metrics for each class
+                for class_name, class_metrics in metrics.items():
+                    if class_name not in all_metrics:
+                        all_metrics[class_name] = {
+                            metric: [] for metric in ['precision', 'recall', 'map50', 'map50_95']
+                        }
+                    
+                    for metric, value in class_metrics.items():
+                        all_metrics[class_name][metric].append(value)
+                        
+            except Exception as e:
+                print(f"Error processing initialization {init}:")
+                print(f"Error details: {str(e)}")
+        else:
+            print(f"Warning: Model not found at {model_path}")
+    
+    # Calculate statistics and confidence intervals
+    results = []
+    for class_name, metrics in all_metrics.items():
+        for metric_name, values in metrics.items():
+            stats = calculate_confidence_interval(values)
+            results.append({
+                'class': class_name,
+                'metric': metric_name,
+                'mean': stats['mean'],
+                'ci_lower': stats['ci_lower'],
+                'ci_upper': stats['ci_upper'],
+                'std': stats['std'],
+                'min': stats['min'],
+                'max': stats['max']
+            })
+    
+    # Create DataFrame and save results
+    results_df = pd.DataFrame(results)
+    
+    # Replace class indices with names if available
+    if class_names:
+        class_map = {f'class_{i}': name for i, name in enumerate(class_names)}
+        results_df['class'] = results_df['class'].map(lambda x: class_map.get(x, x))
+    
+    # Save results to CSV
+    results_csv_path = output_dir / f'class_wise_metrics_with_ci_{timestamp}.csv'
+    results_df.to_csv(results_csv_path, index=False)
+    
+    # Create visualizations
+    vis_path = create_visualizations(results_df, output_dir, timestamp)
+    
+    # Print formatted results
+    print("\nClass-wise Performance Metrics with 95% Confidence Intervals:")
+    print("-" * 80)
+    
+    # First print overall results
+    all_results = results_df[results_df['class'] == 'all_classes']
+    print("\nOverall Performance:")
+    for _, row in all_results.iterrows():
+        print(f"{row['metric']:<12} {row['mean']:.3f} ({row['ci_lower']:.3f} - {row['ci_upper']:.3f})")
+    
+    # Then print class-specific results
+    class_results = results_df[results_df['class'] != 'all_classes']
+    for class_name in sorted(set(class_results['class'])):
+        print(f"\n{class_name}:")
+        class_data = class_results[class_results['class'] == class_name]
+        for _, row in class_data.iterrows():
+            print(f"{row['metric']:<12} {row['mean']:.3f} ({row['ci_lower']:.3f} - {row['ci_upper']:.3f})")
+    
+    print(f"\nResults saved to:")
+    print(f"CSV: {results_csv_path}")
+    print(f"Visualization: {vis_path}")
+
+if __name__ == "__main__":
+    main()
