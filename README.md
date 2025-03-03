@@ -71,6 +71,7 @@ Each annotation entry includes:
 - `glength`: Total length of the fish
 - `fish_id`: TUnique id for each fish in the images
 - `side_up`: Side of the fish whether it is left or right
+- `id` : Segmentation mask ID
 - `area`: Area of the object covered
 
 Example
