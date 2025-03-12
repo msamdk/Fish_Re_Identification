@@ -29,6 +29,8 @@ This dataset consists of **1,500 images** organized into **24 folders**, named s
 Each folder contains multiple images, but **all images within a folder start with the filename `00001.png`**. Despite identical file names across folders, **each image has a unique image ID** for identification.
 
 ---
+
+<img src="images/dataset stru.png" alt="Alt text" width="500">
 <img src="images/image 1.png" alt="Alt text" width="500">
 
 ## **Dataset Organization**
