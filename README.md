@@ -30,7 +30,7 @@ Each folder contains multiple images, but **all images within a folder start wit
 
 ---
 
-<img src="images/dataset stru.png" alt="Alt text" width="500">
+<img src="images/dataset stru.png" alt="Alt text" width="1200">
 <img src="images/image 1.png" alt="Alt text" width="500">
 
 ## **Dataset Organization**
