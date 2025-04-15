@@ -36,16 +36,16 @@ from torchvision.models import resnet50, ResNet50_Weights
 import faiss
 from ultralytics import YOLO
 
- --- Configuration ---
+# --- Configuration ---
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using device: {DEVICE}")
 
- --- Paths ---
+# --- Paths ---
 BASE_PATH     = "/work3/msam/Thesis/autofish/" 
 COCO_ANN_PATH = os.path.join(BASE_PATH, "annotations.json") 
 YOLO_WEIGHTS  = "/work3/msam/Thesis/segmentation/multiple_init_results/init_9/init_9/weights/best.pt" 
 
- --- Parameters ---
+# --- Parameters ---
 TEST_GROUPS   = ["group_10", "group_14", "group_20", "group_21", "group_22"] # Groups for test set gallery/queries
 IOU_THRESHOLD = 0.9       # IoU threshold for matching predicted masks to GT masks
 YOLO_CONF     = 0.25      # YOLO confidence threshold
@@ -53,8 +53,8 @@ YOLO_IOU      = 0.9       # YOLO NMS IoU threshold
 K_NEIGHBORS   = 50        # How many neighbors to retrieve from FAISS (more than final eval K)
 EVAL_K        = 50        # Evaluate up to Rank-K (e.g., R1, R5, R10)
 
- --- Feature Extractor Selection ---
-# Choose one feature extractor
+# --- Feature Extractor Selection ---
+# In this test, i used resnet_50
 EXTRACTOR_TYPE = 'resnet_50' # Options: 'resnet50', 'swin_t', 'dinov2_vits14'
 
 if EXTRACTOR_TYPE == 'resnet50':
@@ -66,11 +66,11 @@ elif EXTRACTOR_TYPE == 'dinov2_vits14':
 else:
     raise ValueError("Unsupported extractor type")
 
- --- Data Structures ---
+# --- Data Structures ---
 # Holds info for each item ADDED to the gallery index
 GalleryInfo = namedtuple("GalleryInfo", ["image_path", "detection_idx", "feature_index"])
 
- --- Model Loading ---
+# --- Model Loading ---
 
 # YOLO Model
 print("Loading YOLO model...")
@@ -82,7 +82,7 @@ except Exception as e:
     print(f"Error loading YOLO model from {YOLO_WEIGHTS}: {e}")
     exit()
 
-# Feature Extractor
+# Feature Extractor -- this test resnet_50
 print(f"Loading Feature Extractor: {EXTRACTOR_TYPE}...")
 if EXTRACTOR_TYPE == 'resnet50':
     feature_extractor = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2) # Use newer weights API
@@ -108,8 +108,8 @@ feature_extractor.eval()
 feature_extractor.to(DEVICE)
 print("Feature extractor loaded successfully.")
 
-# Preprocessing Transform (Adjust size based on feature extractor)
-IMG_SIZE = 224 # Common size for ViT/Swin, ResNet is flexible but 224 is standard
+# Preprocessing Transform 
+IMG_SIZE = 224 
 transform = transforms.Compose([
     transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.ToTensor(),
@@ -119,7 +119,7 @@ transform = transforms.Compose([
 # --- Helper Functions ---
 
 def get_image_paths(base_path, groups):
-    """Gets list of full image paths for the specified groups."""
+    # Gets list of full image paths for the specified groups.
     paths = []
     print(f"Searching for images in groups: {groups} within {base_path}")
     for group in groups:
@@ -137,7 +137,7 @@ def get_image_paths(base_path, groups):
     return paths
 
 def extract_feature_from_mask(img_np, mask_np, feature_extractor, transform):
-    """Extracts feature from an image region defined by a binary mask."""
+    # Extracts feature from an image region defined by a binary mask.
     if mask_np.sum() == 0: # Empty mask
         return None
 
@@ -182,7 +182,7 @@ def extract_feature_from_mask(img_np, mask_np, feature_extractor, transform):
 
 
 def calculate_iou(mask1, mask2):
-    """Calculates IoU between two binary masks (numpy arrays, HxW)."""
+    # Calculates IoU between two binary masks (numpy arrays, HxW).
     if mask1.shape != mask2.shape:
         # print(f"Warning: Mask shape mismatch for IoU: {mask1.shape} vs {mask2.shape}. Resizing second mask.")
         mask2 = cv2.resize(mask2.astype(np.uint8), (mask1.shape[1], mask1.shape[0]), interpolation=cv2.INTER_NEAREST)
@@ -196,7 +196,7 @@ def calculate_iou(mask1, mask2):
     return intersection / union
 
 def load_coco_annotations(coco_path, base_img_path):
-    """Loads COCO annotations and builds useful mappings."""
+    # Loads COCO annotations and builds useful mappings.
     print(f"Loading annotations from {coco_path}...")
     if not os.path.exists(coco_path):
         print(f"Error: Annotation file not found at {coco_path}")
@@ -230,7 +230,7 @@ def load_coco_annotations(coco_path, base_img_path):
     return coco_data, imgid_to_filepath, imgfilepath_to_id, imgid_to_annotations, annid_to_annotation
 
 def get_gt_mask(annotation, img_h, img_w):
-    """Creates a binary mask from a COCO annotation (polygon or RLE)."""
+    # Creates a binary mask from a COCO annotation (polygon or RLE)
     mask = np.zeros((img_h, img_w), dtype=np.uint8)
     seg = annotation['segmentation']
     if isinstance(seg, list): # Polygon
