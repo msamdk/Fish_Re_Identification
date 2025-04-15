@@ -36,16 +36,16 @@ from torchvision.models import resnet50, ResNet50_Weights
 import faiss
 from ultralytics import YOLO
 
-# --- Configuration ---
+ --- Configuration ---
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using device: {DEVICE}")
 
-# --- Paths ---
+ --- Paths ---
 BASE_PATH     = "/work3/msam/Thesis/autofish/" 
 COCO_ANN_PATH = os.path.join(BASE_PATH, "annotations.json") 
 YOLO_WEIGHTS  = "/work3/msam/Thesis/segmentation/multiple_init_results/init_9/init_9/weights/best.pt" 
 
-# --- Parameters ---
+ --- Parameters ---
 TEST_GROUPS   = ["group_10", "group_14", "group_20", "group_21", "group_22"] # Groups for test set gallery/queries
 IOU_THRESHOLD = 0.9       # IoU threshold for matching predicted masks to GT masks
 YOLO_CONF     = 0.25      # YOLO confidence threshold
@@ -66,11 +66,11 @@ elif EXTRACTOR_TYPE == 'dinov2_vits14':
 else:
     raise ValueError("Unsupported extractor type")
 
-# --- Data Structures ---
+ --- Data Structures ---
 # Holds info for each item ADDED to the gallery index
 GalleryInfo = namedtuple("GalleryInfo", ["image_path", "detection_idx", "feature_index"])
 
-# --- Model Loading ---
+ --- Model Loading ---
 
 # YOLO Model
 print("Loading YOLO model...")
