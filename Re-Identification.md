@@ -1,8 +1,8 @@
 ## Initial Re-Identification experiment using Ranking based on L2 normlized Vectors on Euclidian distance
 
-<img src="images/re_id/1.jpg" alt="Alt text" width="1500">
-<img src="images/re_id/2.jpg" alt="Alt text" width="1500">
-<img src="images/re_id/3.jpg" alt="Alt text" width="1500">
+<img src="images/re_id/1.jpg" alt="Alt text" width="2000">
+<img src="images/re_id/2.jpg" alt="Alt text" width="2000">
+<img src="images/re_id/3.jpg" alt="Alt text" width="2000">
 
 ## COCO format provides 
 - segmentation masks as polygons using absolute pixel coordinates  
