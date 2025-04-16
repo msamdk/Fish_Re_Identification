@@ -13,7 +13,7 @@
    - over two thirds of tthe time, the correct fish is found within the top 10 results.
 
 
-```text
+
 ## Important Parameter definitions i used in the process below
 ### 1. IoU_THRESHOLD = 0.9
    sets the minimum required overlap (Intersection over Union) when matching a YOLO predicted mask to a Ground truth mask (GT)
@@ -38,7 +38,7 @@ This is needed to be more than the final rank that we want to evaluate because h
 ### 5. EVAL_K = 50
 Defines maximum rank (k) up to which i want to calculate and potentially report the re-id accuracy
 
-```
+
 ## Script
 
 The script follows the above phases described visually in the diagrams above
