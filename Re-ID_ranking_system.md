@@ -5,12 +5,12 @@
 <img src="images/re_id/3.jpg" alt="Alt text" width="2000">
 
 ## Ranking results (ResNet50)
-- Rank-1  Accuracy: 35.86%
-   - roughly 1 out of 3 times, the very best match the system finds (excluding the query photo itself) is the correct fish. 
-- Rank-5  Accuracy: 57.05%
-   - more than half the time, the correct fish appears somewhere within the top 5 most similar results
-- Rank-10 Accuracy: 68.04%
-   - over two thirds of tthe time, the correct fish is found within the top 10 results.
+- Rank-1  Accuracy: 27.73%
+    
+- Rank-5  Accuracy: 45.70%
+   
+- Rank-10 Accuracy: 54.51%
+   
 
 
 
