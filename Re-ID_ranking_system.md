@@ -14,7 +14,7 @@
 
 
 ## Important Parameter definitions i used in the process below
-1. IoU threshold = 0.9
+### 1. IoU threshold = 0.9
    sets the minimum required overlap (Intersection over Union) when matching a YOLO predicted mask to a Ground truth mask (GT)
    This threshold is used in two places in the pipeline
 
