@@ -16,31 +16,31 @@
 
 ## Important Parameter definitions i used in the process below
 #### 1. IoU_THRESHOLD = 0.9
-   ```text
+   
    sets the minimum required overlap (Intersection over Union) when matching a YOLO predicted mask to a Ground truth mask (GT)
    This threshold is used in two places in the pipeline
 
    1. Pre-computing links - When linking a gallery detection (from YOLO) back to a GT "fish_ID", the GT mask must be at least 90%. if the best overlap is less than this, the script assumes the yolo detection doesnt correspond well enough to any known fish, and it assigns "None" as the linked ID for that gallery item
    2. Query selction - when start with a GT fish annotation to form a query, the script finds the yolo mask in that image that best overlaps with it. If that best overlap is less than 0.9, the script decides the specific GT fish wasnt detected reliably enough by YOLO to be used as aquery. IT skips processing that particular query instance and move to the next.
-```  
+ 
 #### 2. YOLO_CONF = 0.25
-```text
+
 Standard yolo parameter defining the minimum confidence score a detection must have to be considered as valid.
-```
+
 #### 3. YOLO_IOU = 0.5
-```text
+
 This is yolo non max suppression (NMS) IoU threshold.
-```
+
 #### 4. K_NEIGHBOURS = 50
-```text
+
 specified how many potentially similar items to retrieve from the FAISS index during the search step (faiss_index_search())
 In here when we search FAISS with a query feature, this parameter tells FAISS to return the top 50 gallery items whose features are closest (most similar( to the query feature.
 This is needed to be more than the final rank that we want to evaluate because here it skips the self match instance.
-```
+
 #### 5. EVAL_K = 50
-```text
+
 Defines maximum rank (k) up to which i want to calculate and potentially report the re-id accuracy.
-```
+
 
 ## Script
 
