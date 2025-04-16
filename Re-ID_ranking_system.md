@@ -10,8 +10,13 @@
 - Rank-5  Accuracy: 45.70%
    
 - Rank-10 Accuracy: 54.51%
-   
 
+```text
+Total GT annotations processed as potential queries: approx 3759
+  Successfully processed queries (feature extracted): 1385
+  Queries skipped (no good YOLO match to GT): 2374
+  Queries skipped (feature extraction failed): 0
+```
 
 
 ## Important Parameter definitions i used in the process below
