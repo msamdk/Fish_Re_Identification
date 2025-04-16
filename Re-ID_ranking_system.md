@@ -76,7 +76,7 @@ YOLO_WEIGHTS  = "/work3/msam/Thesis/segmentation/multiple_init_results/init_9/in
 TEST_GROUPS   = ["group_10", "group_14", "group_20", "group_21", "group_22"] # Groups for test set gallery/queries
 IOU_THRESHOLD = 0.9       # IoU threshold for matching predicted masks to GT masks
 YOLO_CONF     = 0.25      # YOLO confidence threshold
-YOLO_IOU      = 0.9       # YOLO NMS IoU threshold
+YOLO_IOU      = 0.5       # YOLO NMS IoU threshold
 K_NEIGHBORS   = 50        # How many neighbors to retrieve from FAISS (more than final eval K)
 EVAL_K        = 50        # Evaluate up to Rank-K (e.g., R1, R5, R10)
 
