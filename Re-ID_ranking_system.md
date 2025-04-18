@@ -7,6 +7,8 @@
 Intial experiments were done to find the baseline performance of the Re-ID system with the off-the-shelf ResNet50 and DINOv2 models as feature extractors of the
 segmented masks from the trained YOLO segmentation model.
 
+Also the experiment was done without the YOLO segmentation and using the Ground Truth annotations to build the Gallery and the similarity ranking.
+
 
 ## Ranking results (ResNet50)
 - Rank-1  Accuracy: 27.73%
