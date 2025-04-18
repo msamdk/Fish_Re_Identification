@@ -10,21 +10,9 @@ segmented masks from the trained YOLO segmentation model.
 Also the experiment was done without the YOLO segmentation and using the Ground Truth annotations to build the Gallery and the similarity ranking.
 
 
-## Ranking results (ResNet50)
-- Rank-1  Accuracy: 27.73%
-    
-- Rank-5  Accuracy: 45.70%
-   
-- Rank-10 Accuracy: 54.51%
-
-```text
-Total GT annotations processed as potential queries: approx 3759
-  Successfully processed queries (feature extracted): 1385
-  Queries skipped (no good YOLO match to GT): 2374
-  Queries skipped (feature extraction failed): 0
-```
 
 
+-----------------------------------------------------------------------------------------------------------------------------
 ## Important Parameter definitions i used in the process below
 #### 1. IoU_THRESHOLD = 0.9
    
