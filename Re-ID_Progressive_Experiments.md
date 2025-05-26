@@ -1058,12 +1058,12 @@ if __name__ == "__main__":
   Rank-20 Accuracy: 73.60%
 ```
 ------------------------------------------------------------------------------------------------------------
-Malte's Ideas from the last visit on May 26th
+### Malte's Ideas from the last visit on May 26th
 As the next part try to look more in depth towards whats happening inside the images, where does it fails to identify.
-Try to do it manually by seeing if something is wrong with few images.
+- Try to do it manually by seeing if something is wrong with few images.
 
-for example take few images and try to isolate left side only and right side only to do the re-ID and then the separated vs occluded sceneraios only to do the re-iD
+- for example take few images and try to isolate left side only and right side only to do the re-ID and then the separated vs occluded sceneraios only to do the re-iD
 check how these results differe
-mainly find out where the model breaks to identify
-so that in future we can collect more data to solve the issue.
-not by collecting a whole new data set with all configurations
+- mainly find out where the model breaks to identify
+- so that in future we can collect more data to solve the issue.
+- not by collecting a whole new data set with all configurations
