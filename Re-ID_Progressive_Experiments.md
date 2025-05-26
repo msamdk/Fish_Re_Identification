@@ -1044,3 +1044,16 @@ if __name__ == "__main__":
 ### CMC Curve
 
 <img src="images/re_id/CMC.png" alt="Alt text" width="2000">
+
+## Few shot learning results with pre-trained ResNet50 as the feature extractor
+
+```text
+--- Few-Shot Re-ID Results (resnet50 / GT Masks) ---
+  Rank-1  Accuracy: 27.34%
+  Rank-2  Accuracy: 35.45%
+  Rank-3  Accuracy: 40.81%
+  Rank-5  Accuracy: 49.00%
+  Rank-10 Accuracy: 60.95%
+  Rank-14 Accuracy: 66.15%
+  Rank-20 Accuracy: 73.60%
+```
