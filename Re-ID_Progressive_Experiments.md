@@ -1043,3 +1043,4 @@ if __name__ == "__main__":
 
 ### CMC Curve
 
+<img src="images/re_id/CMC.png" alt="Alt text" width="2000">
