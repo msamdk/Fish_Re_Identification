@@ -1067,3 +1067,20 @@ check how these results differe
 - mainly find out where the model breaks to identify
 - so that in future we can collect more data to solve the issue.
 - not by collecting a whole new data set with all configurations
+- 
+
+ResNet 18 - try to test it in the series of ResNet
+and do a PCA
+rotate the query images in few degrees (45, 90)
+try to add some noise - check the robustness to different noises (salt and pepper)
+one at a time ´gaussian noise (blur level) and quatify compared to the noise free images
+patches of blur
+ImageNet-C (fog)
+
+baseline - KISS (inverse of mahalnobis distance) try to do this - do this and then compare to the rest of the models
+
+discussion
+tracking and re-id. 
+imapolementing simple tracker and to implement re-id (perspective that we can use in fising vessles)
+
+what might happen on the fishing vessela dn try to quantify the efefet
