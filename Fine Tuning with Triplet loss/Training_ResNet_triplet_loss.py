@@ -77,15 +77,16 @@ print("-" * 20)
 # --- Training Hyperparameters ---
 LEARNING_RATE = 1e-5
 NUM_EPOCHS    = 50
-P_IDENTITIES  = 8
-K_INSTANCES   = 4
-MARGIN        = 0.3
-EMBEDDING_DIM = 512
-WEIGHT_DECAY  = 1e-4
+P_IDENTITIES  = 8    # each batch will contain P different fish_ids
+K_INSTANCES   = 4    # for each fish_id, k different instances. So this ensures each batch has a good mix of
+# positive (same ID) and negative (different ID) examples, which is vital for metric learning.
+MARGIN        = 0.3  # defines the desired minimum distance between an anchor-positive pair and an anchor-negative pair
+EMBEDDING_DIM = 512  # The size (dimensionality) of the final vector representation for each fish image
+WEIGHT_DECAY  = 1e-4 # regularisation to prevent overfitting by adding a small penalty to large weights
 BATCH_SIZE    = P_IDENTITIES * K_INSTANCES
-IMG_SIZE      = 224
-BACKBONE_OUTPUT_DIM = 2048 # ResNet50 specific
-NUM_WORKERS   = 4
+IMG_SIZE      = 224     #224 x 224
+BACKBONE_OUTPUT_DIM = 2048 # ResNet50 specific - before the final classification layer
+NUM_WORKERS   = 4 # parallel processes to use for loading data, speeding up training
 
 print("--- Hyperparameters ---")
 # ... (print statements for hyperparameters from previous script) ...
@@ -95,6 +96,12 @@ print("-" * 20)
 
 
 # --- Model Definition (ResNet50 specific) ---
+
+## Whats happening here
+#    1. Uses pretrained ResNet 50 model as the backbone of FishReIDNet
+#    2. The original FC layer, which was used for classification, has now been replaced with nn.Identity(). To output the raw 2048-dimensional feature vector
+#    3. An embedding_head (a single nn.Linear layer) is added. This layer takes the 2048 dim features and maps them down to the desired EMBEDDING_DIM (512).
+#       This is the final embedding that is used in Re-ID
 class FishReIDNet(nn.Module):
     def __init__(self, backbone_out_dim, embedding_dim, pretrained=True):
         super().__init__()
