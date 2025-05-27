@@ -119,8 +119,12 @@ class FishReIDNet(nn.Module):
         return embedding
 
 # --- Custom Dataset (Uses JSON Metadata) ---
+
+# purpose: To load the pre-processed fish crops and their corresponding labels (fish_ids) from the JSON metadata files
+# train_crop_metadata.JSON and val_crop_metadata.JSON
+
 class FishCropDataset(Dataset):
-    # ... (Exactly the same as the version in the previous 'full script for training' response) ...
+   
     def __init__(self, metadata_path, transform=None, id_to_label_map=None, is_train=True):
         self.metadata_path = metadata_path
         self.transform = transform
