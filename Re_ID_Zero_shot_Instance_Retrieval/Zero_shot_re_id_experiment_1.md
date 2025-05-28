@@ -13,6 +13,12 @@ The image groups contain 60 images and have 3 subsets organised according to the
 - All_set_initial: 00041 to 00050 (touched)
 - All_set_flipped: 00051 to 00060 (touched)
 
-Then this 3D plot shows the raw 2048 dimensional feature vector recieved from the outer layer of the ResNet model after removing the final classification layer (FC layer)
+Then this 3D plot shows the raw 2048-dimensional feature vector received from the outer layer of the ResNet model after removing the final classification layer (FC layer)
 
-<img src="/Re_ID_Zero_shot_Instance_Retrieval/images/1.png" alt="Alt text" width="2000">
+### 3D visualisation of the distribution of points (14 instances of each fish_ID
+- Each point represents a cropped fish image and the position of 14 points in the 3D space is different due to the variation in the lighting, arrangement, occlusion levels and so on (2048 different features of the fish).
+- This figure represents the complete 94 fish_id in 3-dimensional format made using t-SNE (t-distributed stochastic neighbour embedding) technique.
+- This technique is commonly used in dimensionality reduction and data visualisation.
+- It is a non-linear dimensionality reduction technique that focuses on preserving the local structure of the data by minimizing the Kullback-Leibler divergence between the high-dimensional and low-dimensional distributions. It is more suitable for non-linearly separable datasets and can handle outliers. t-SNE is computationally expensive and involves hyperparameters such as perplexity, learning rate, and number of steps
+  
+<img src="/Re_ID_Zero_shot_Instance_Retrieval/images/3.png" alt="Alt text" width="2000">
