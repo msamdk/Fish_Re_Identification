@@ -12,4 +12,4 @@ The feature extractor was used as it is, without specifically training with simi
 There are 14 instances altogether taken to build the gallery, and the other 26 instances were used to evaluate the Re-ID performance.
 
 
-<img src="Re-ID experiments_Pre_trained_feature_extractors/images/newplot (3).png" alt="Alt text" width="1500">
+<img src="Re-ID%experiments_Pre_trained_feature_extractors/images/newplot%(3).png" alt="Alt text" width="1500">
