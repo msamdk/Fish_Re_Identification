@@ -129,6 +129,8 @@ class FishCropDataset(Dataset):
         self.metadata_path = metadata_path
         self.transform = transform
         self.is_train = is_train
+        # label mapping: Maps the string fish_id of the cropped images to a unique integer label (0,1,2,....). This is built using the
+        # training set and then reused by the validation set to ensure consistency
         self.id_to_label_map = id_to_label_map if id_to_label_map is not None else {}
         self.next_available_label = 0
         if self.id_to_label_map:
@@ -163,7 +165,8 @@ class FishCropDataset(Dataset):
 
     def __len__(self):
         return len(self.metadata)
-
+# defines how to get a single data sample. Given an index, it retrieves the image path and fish ID, opens the image using PIL, converts to RGB,
+# applies the defined transform and returns the image tensor and its corresponding integer label.    
     def __getitem__(self, index):
         item = self.metadata[index]
         img_path = item['image_path']
