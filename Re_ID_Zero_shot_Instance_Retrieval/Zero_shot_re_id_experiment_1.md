@@ -15,4 +15,4 @@ The image groups contain 60 images and have 3 subsets organised according to the
 
 Then this 3D plot shows the raw 2048 dimensional feature vector recieved from the outer layer of the ResNet model after removing the final classification layer (FC layer)
 
-<img src="Re_ID_Zero_shot_Instance_Retrieval/images/1.png" alt="Alt text" width="2000">
+<img src="/Re_ID_Zero_shot_Instance_Retrieval/images/1.png" alt="Alt text" width="2000">
