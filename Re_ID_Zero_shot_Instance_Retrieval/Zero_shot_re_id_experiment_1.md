@@ -24,6 +24,6 @@ Then this 3D plot shows the raw 2048-dimensional feature vector received from th
 <img src="/Re_ID_Zero_shot_Instance_Retrieval/images/3.png" alt="Alt text" width="2000">
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
-### 3D visualisation of the distribution of 14 points of fish_id
+### 3D visualisation of the distribution of 14 points of few fish_Ids for easier understanding
 
-<img src="/Re_ID_Zero_shot_Instance_Retrieval/images/2.png" alt="Alt text" width="2000">
+<img src="/Re_ID_Zero_shot_Instance_Retrieval/images/5.png" alt="Alt text" width="2000">
