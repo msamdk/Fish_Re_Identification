@@ -22,3 +22,8 @@ Then this 3D plot shows the raw 2048-dimensional feature vector received from th
 - It is a non-linear dimensionality reduction technique that focuses on preserving the local structure of the data by minimizing the Kullback-Leibler divergence between the high-dimensional and low-dimensional distributions. It is more suitable for non-linearly separable datasets and can handle outliers. t-SNE is computationally expensive and involves hyperparameters such as perplexity, learning rate, and number of steps
   
 <img src="/Re_ID_Zero_shot_Instance_Retrieval/images/3.png" alt="Alt text" width="2000">
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+### 3D visualisation of the distribution of 14 points of fish_id
+
+<img src="/Re_ID_Zero_shot_Instance_Retrieval/images/2.png" alt="Alt text" width="2000">
