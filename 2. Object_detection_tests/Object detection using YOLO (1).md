@@ -1,7 +1,7 @@
 
 
 <h2>Training an Object detection model using latest YOLO v11 models</h2>
-<img src="images/group_01.png" alt="Alt text" width="1500">
+<img src="images/yolo_train.png" alt="Alt text" width="1500">
 
 Before training, we should rearrange the Autofish dataset to be compatible with the YOLO models.
 As i discussed in the Data exploration section, the COCO annotation configuration is quiet different from the YOLO configuration. 
@@ -406,5 +406,5 @@ Here only a single training run has been done to identify the model performance 
 From this large architecture seems to perform well as an overall performer for bounding box classification task
 
 
-<img src="images/overall performance.png" alt="Alt text" width="1500">
+<img src="images/overall_perf.png" alt="Alt text" width="1500">
 
