@@ -14,12 +14,6 @@ The fundamental contribution of Re-Id towards accurate catch quantification lies
 | :---: | :---: |
 | ![Demo GIF 1](images/swin.gif) | ![Demo GIF 2](images/your-second-gif.gif) |
 
-<table>
-  <tr>
-    <td><img src="images/swin.gif" alt="Demo GIF 1" width="400"></td>
-    <td><img src="images/your-second-gif.gif" alt="Demo GIF 2" width="400"></td>
-  </tr>
-</table>
 
 # Fish Re-identification Pipeline and process
 
