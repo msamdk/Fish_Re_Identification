@@ -47,7 +47,7 @@ Where,
 * **$[\cdot]_+$**: The **hinge loss function**, defined as `max(·, 0)`, which ensures the loss is non-negative.
 
 
-
+___________________________________________________________________________________________________
 <img src="images/1.jpg" alt="Alt text" width="1200">
 
 
