@@ -122,7 +122,7 @@ Visualizing an image with its segmentation masks
 import matplotlib.pyplot as plt
 import cv2
 
-img_id = 2 #this is the annotation image id in a spefic group, just define it then in later steps it will find the image
+img_id = 166 #this is the annotation image id in a spefic group, just define it then in later steps it will find the image
 image_info = coco.loadImgs(img_id)[0]
 print(image_info)
 
@@ -147,7 +147,7 @@ plt.show()
 
 ```
 
-<img src="images/fish with segmentation.png" alt="Alt text" width="500">
+<img src="images/seg_mask1.png" alt="Alt text" width="500">
 
 
 For visualizing multimple images with their bounding boxes and segmentation masks
