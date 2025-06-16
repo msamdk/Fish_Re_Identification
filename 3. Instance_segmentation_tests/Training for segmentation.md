@@ -398,8 +398,8 @@ if __name__ == "__main__":
 <img src="images/val_batch1_pred.jpg" alt="Alt text" width="1000">
 
 <p align="center">
-  <img src="images/segmentation_results/confusion_matrix.png" alt="Val Labels batch 1" width="45%">
-  <img src="images/segmentation_results/confusion_matrix_normalized.png" alt="Val Predictions batch 1" width="45%">
+  <img src="images/confusion_matrix.png" alt="Val Labels batch 1" width="45%">
+  <img src="images/confusion_matrix_normalized.png" alt="Val Predictions batch 1" width="45%">
 </p>
 
 <p align="center">
