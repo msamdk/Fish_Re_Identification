@@ -10,7 +10,7 @@ The fundamental contribution of Re-Id towards accurate catch quantification lies
 
 # YAY! Some cool results (Feature embeddings of fish in 3D space)
 
-![Demo GIF](images/catch.gif)
+![Demo GIF](images/swin.gif)
 
 # Fish Re-identification Pipeline and process
 
