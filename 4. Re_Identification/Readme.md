@@ -25,5 +25,8 @@ L_T (a,p,n)=1/N ∑_i^N▒max⁡(‖f(x_i^a )-├ f(x_i^p )┤‖┤_2^2-‖f(x_
 
 ```
 <img src="images/1.jpg" alt="Alt text" width="1200">
-<img src="images/2.jpg" alt="Alt text" width="1200">
 
+
+4. Then the model is Evaluated using the test dataset
+
+<img src="images/2.jpg" alt="Alt text" width="1200">
