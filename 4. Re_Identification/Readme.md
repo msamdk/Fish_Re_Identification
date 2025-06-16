@@ -8,7 +8,7 @@ The fundamental contribution of Re-Id towards accurate catch quantification lies
 
 <img src="images/figure6.png" alt="Alt text" width="1200">
 
-# Some cool results of the Two Trained feature extractors. See how these clusters exist in the 3D space. YAY! Some progress
+# YAY! Some cool results (Feature embeddings of fish in 3D space)
 
 ![Demo GIF](images/catch.gif)
 
