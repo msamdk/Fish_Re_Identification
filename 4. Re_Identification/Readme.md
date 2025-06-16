@@ -27,9 +27,26 @@ Therefore the batch size = P*K
   
 Triplet margin miner is used to identify the triplets. Hard triplets are used in here. Hard triplets follow the condition that the distance (A,P) > distance (A,N) which simulates the worst cases where the model cannot identify same fish ID. so the model will select these highly confusing pairs and form the triplets. so the model can learn sublte features of two highly similar fish individuals.
 
+## Triplet loss function
+
 ```math
 \mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} \max \left( \left\| f(x_i^a) - f(x_i^p) \right\|^2 - \left\| f(x_i^a) - f(x_i^n) \right\|^2 + \alpha, 0 \right)
 ```
+
+Where,
+```text
+* **$L_T$**: The final **Triplet Loss**, averaged over the batch.
+* **$N$**: The **number of triplets** in the batch.
+* **$a_i$**: The **anchor** sample in the $i$-th triplet.
+* **$p_i$**: The **positive** sample (same class as $a_i$).
+* **$n_i$**: The **negative** sample (different class from $a_i$).
+* **$f(x)$**: The **embedding function** that maps an input $x$ to a feature vector.
+* **$\|f(a_i) - f(p_i)\|^2$**: The **squared Euclidean distance** between the anchor and positive embeddings.
+* **$\|f(a_i) - f(n_i)\|^2$**: The **squared Euclidean distance** between the anchor and negative embeddings.
+* **$m$**: A **margin** hyperparameter that enforces a minimum separation between pairs.
+* **$[\cdot]_+$**: The **hinge loss function**, defined as `max(·, 0)`, which ensures the loss is non-negative.
+```
+
 
 <img src="images/1.jpg" alt="Alt text" width="1200">
 
