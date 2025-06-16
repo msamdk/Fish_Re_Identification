@@ -12,7 +12,7 @@ The fundamental contribution of Re-Id towards accurate catch quantification lies
 
 | Swin-T (Vision Transformer) - 41.6% mAP@R & 90.3% R1 | ResNet 50 (CNN) - 13.56% mAP@R & 70.26% R1|
 | :---: | :---: |
-| ![Demo GIF 1](images/swin.gif) | ![Demo GIF 2](images/your-second-gif.gif) |
+| ![Demo GIF 1](images/swin.gif) | ![Demo GIF 2](images/resnet.gif) |
 
 
 # Fish Re-identification Pipeline and process
