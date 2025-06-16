@@ -164,7 +164,7 @@ image_infos = coco.loadImgs(img_ids)
 
 for image_info in image_infos:
     #image path (main path to the autofish directory)
-    image_path = f"/content/drive/MyDrive/Thesis/autofish/{image_info['file_name']}"
+    image_path = f"/work3/msam/Thesis/autofish/{image_info['file_name']}"
 
     #Reading image
     image = cv2.imread(image_path)
