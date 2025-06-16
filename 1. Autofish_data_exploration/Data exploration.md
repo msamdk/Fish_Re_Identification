@@ -1,0 +1,213 @@
+<h2>Data exploration using python</h2>
+
+Reading the dataset from the source. This is an example if you are doing it from google collab. First you have to mount the drive and then define the dataset path and execute this. Other wise use your local disk
+```python
+
+import json
+
+with open('/content/drive/MyDrive/path//annotations.json') as f:
+    annotations = json.load(f)
+```
+Printing major keys in the annotation file.
+COCO style annnotations typically contain these keys
+1. images
+2. annotations
+3. categories
+```python
+print("Keys in annotation file:", annotations.keys())
+
+```
+Object classes in the annotation file
+```python
+
+categories = {cat["id"]: cat["name"] for cat in annotations["categories"]}
+print("Categories:", categories)
+```
+list an example annotation
+```python
+
+ann_ex = annotations['annotations']
+print("Example annotation:", ann_ex[0])
+```
+<h2>pycocotools</h2>
+
+But rather than using json to read the annotation, you can use pycocotools
+```python
+
+pip install pycocotools
+```
+After installation you can get to know about the functions in the library
+```python
+help(COCO)
+```
+To see a specific function
+```python
+help(COCO.loadCats)
+```
+
+Importing the dataset
+```python
+from pycocotools.coco import COCO
+
+annotation = 'path/to//annotations.json'
+coco = COCO(annotation)
+```
+getting category ID and category name
+```python
+
+categories = [(category['id'],category['name']) for category in categories]
+print(categories)
+```
+
+A specific category iD
+```python
+cat_es = coco.getCatIds(catNms=['whiting'])
+print(cat_es)
+```
+
+Get the sequence of image IDs
+```python
+img_ids = coco.getImgIds()
+print(img_ids)
+```
+
+**Annotation ID**
+
+getAnnIds() function is crucial for extracting specific annotation ids that match certain image IDs, category IDs or other criteria
+
+**What does it do?**
+
+it retrieves annotation ids that satisft the given conditions
+
+
+> ann_ids = coco.getAnnIds(imgIds=[10, 20], catIds=[1, 2], iscrowd=None)
+
+here filters annotations for images with ID 10 and 20, filters annotations belonging to categories 1 and 2, igores the annotations marked as crowd
+
+
+Get annotation IDs for objects larger than 1000 pixels in area
+```python
+ann_ids_large = coco.getAnnIds(areaRng=[1000, float('inf')])
+annotations_large = coco.loadAnns(ann_ids_large)
+print(f"Total large annotations: {len(annotations_large)}")
+```
+
+knowing the annotation structure of the annotation.json file
+```python
+img_ID = 2
+ann_ids = coco.getAnnIds(imgIds=[img_ID])
+annotations = coco.loadAnns(ann_ids)
+print(annotations[0])
+```
+Result
+```
+{
+  'iscrowd': 0,
+  'image_id': 2,
+  'bbox': [79.0, 479.0, 196.0, 892.0],
+  'segmentation': [[140, 1371, 110, 1369, 101, 1346, 143, 1188, 129, 1068, 85, 982, 79, 912, 97, 688, 115, 616, 157, 502, 190, 479, 217, 514, 263, 652, 275, 844, 239, 1146, 197, 1210, 185, 1280],
+  'category_id': 1,
+  'length': 36.0,
+  'fish_id': 419,
+  'side_up': 'L',
+  'id': 9,
+  'area': 111561
+  }
+
+```
+
+
+Visualizing an image with its segmentation masks
+```python
+import matplotlib.pyplot as plt
+import cv2
+
+img_id = 2 #this is the annotation image id in a spefic group, just define it then in later steps it will find the image
+image_info = coco.loadImgs(img_id)[0]
+print(image_info)
+
+#path to the main folder with all the subfolders in the autofish (groups)
+image_path = f"/content/drive/MyDrive/Thesis/autofish/{image_info['file_name']}"
+
+
+#reading the image
+image = cv2.imread(image_path)
+
+# Check if the image was loaded correctly
+if image is None:
+    raise FileNotFoundError(f"Image not found at path: {image_path}")
+
+ann_ids = coco.getAnnIds(imgIds=[img_id])
+annotations = coco.loadAnns(ann_ids)
+
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.imshow(image)
+coco.showAnns(annotations)
+plt.show()
+
+```
+
+<img src="images/fish with segmentation.png" alt="Alt text" width="500">
+
+
+For visualizing multimple images with their bounding boxes and segmentation masks
+```python
+import matplotlib.pyplot as plt       #displaying images
+import matplotlib.patches as patches  #drawing bounding boxes
+import cv2                            #read and process images
+
+#defining multiple selected images
+img_ids = [2, 50, 250, 500, 750, 1000]
+
+#getting metadata for the selected images
+image_infos = coco.loadImgs(img_ids)
+
+for image_info in image_infos:
+    #image path (main path to the autofish directory)
+    image_path = f"/content/drive/MyDrive/Thesis/autofish/{image_info['file_name']}"
+
+    #Reading image
+    image = cv2.imread(image_path)
+
+    #confirm the image read correctly
+    if image is None:
+        print(f"Warning: Image not found at {image_path}")
+        continue
+
+    #Resize image to COCO's recorded dimensions
+    image = cv2.resize(image, (image_info['width'], image_info['height']))
+    #adjusting the color profiles to RGB
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    #Get annotations for this image
+    ann_ids = coco.getAnnIds(imgIds=[image_info['id']])
+    annotations = coco.loadAnns(ann_ids)
+
+    #Debug: Check if annotations belong to the correct image
+    print(f"Annotations for Image {image_info['id']}: {ann_ids}")
+
+    #Plot Image
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.imshow(image)
+
+    #Plot Bounding Boxes
+    for ann in annotations:
+        bbox = ann['bbox']
+        x_min, y_min, width, height = bbox
+        rect = patches.Rectangle(
+            (x_min, y_min), width, height, linewidth=1, edgecolor='y', facecolor='none'
+        )
+        ax.add_patch(rect)
+
+    #Show Annotations using COCO
+    coco.showAnns(annotations)
+    plt.axis("off")
+    plt.title(f"Image ID: {image_info['id']}")
+    plt.show()
+
+```
+<img src="images/bb andseg.png" alt="Alt text" width="500">
+
+
+
+
