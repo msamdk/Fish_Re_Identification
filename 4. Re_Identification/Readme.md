@@ -34,7 +34,7 @@ Triplet margin miner is used to identify the triplets. Hard triplets are used in
 ```
 
 Where,
-```text
+
 * **$L_T$**: The final **Triplet Loss**, averaged over the batch.
 * **$N$**: The **number of triplets** in the batch.
 * **$a_i$**: The **anchor** sample in the $i$-th triplet.
@@ -45,7 +45,7 @@ Where,
 * **$\|f(a_i) - f(n_i)\|^2$**: The **squared Euclidean distance** between the anchor and negative embeddings.
 * **$m$**: A **margin** hyperparameter that enforces a minimum separation between pairs.
 * **$[\cdot]_+$**: The **hinge loss function**, defined as `max(·, 0)`, which ensures the loss is non-negative.
-```
+
 
 
 <img src="images/1.jpg" alt="Alt text" width="1200">
