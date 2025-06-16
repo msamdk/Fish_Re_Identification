@@ -33,4 +33,7 @@ L_T (a,p,n)=1/N ∑_i^N▒max⁡(‖f(x_i^a )-├ f(x_i^p )┤‖┤_2^2-‖f(x_
 <img src="images/2.jpg" alt="Alt text" width="1200">
 
 # Performance metrics for Evaluation
+
+Here mean average precision at R (mAP@R) is used as the primary metric which displays the ranking quality of the re-id for a particular query. Rank-1 accuracy (R1) was also calculated to have an idea how many queries detect the correct match as the first match as a percentage. The calculations can be seen in the following image
+
 <img src="images/metrics.jpg" alt="Alt text" width="1200">
