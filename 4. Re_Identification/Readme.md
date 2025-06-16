@@ -8,6 +8,10 @@ The fundamental contribution of Re-Id towards accurate catch quantification lies
 
 <img src="images/figure6.png" alt="Alt text" width="1200">
 
+# Some cool results of the Two Trained feature extractors. See how these clusters exist in the 3D space. YAY! Some progress
+
+![Demo GIF](images/catch.gif)
+
 # Fish Re-identification Pipeline and process
 
 The Re-Identification experiments were done to represent the pre-trained (off-the-shelf) model performance using zero-shot instance retrieval and the main experiments include the finetuning the feature extractor models (Swin-T and ResNet) with Triplet learning
