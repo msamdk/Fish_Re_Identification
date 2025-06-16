@@ -31,3 +31,6 @@ L_T (a,p,n)=1/N ∑_i^N▒max⁡(‖f(x_i^a )-├ f(x_i^p )┤‖┤_2^2-‖f(x_
 4. Then the model is Evaluated using the test dataset
 
 <img src="images/2.jpg" alt="Alt text" width="1200">
+
+# Performance metrics for Evaluation
+<img src="images/metrics.jpg" alt="Alt text" width="1200">
