@@ -505,3 +505,5 @@ print(f"\nSaved combined chart to {file_name}")
 print("Analysis complete.")
 
 ```
+<img src="images/species_dist.png" alt="Alt text" width="1500">
+<img src="images/sp_dist.png" alt="Alt text" width="1500">
