@@ -14,5 +14,7 @@ Therefore the batch size = P*K
 Triplet margin miner is used to identify the triplets. Hard triplets are used in here. Hard triplets follow the condition that the distance (A,P) > distance (A,N) which simulates the worst cases where the model cannot identify same fish ID. so the model will select these highly confusing pairs and form the triplets. so the model can learn sublte features of two highly similar fish individuals.
 
 ```equation
+L_T (a,p,n)=1/N ∑_i^N▒max⁡(‖f(x_i^a )-├ f(x_i^p )┤‖┤_2^2-‖f(x_i^a )-├ f(x_i^p )┤‖┤_2^2+m,0) 	   (4)
+
 
 ```
