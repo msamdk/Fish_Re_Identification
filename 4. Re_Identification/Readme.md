@@ -2,7 +2,7 @@
 
 Traditional Electronic Monitoring (EM) systems in smart fisheries face significant limitations in accurately identifying fish species and, more critically, in consistently tracking individual fish on conveyor belts. While conventional object tracking algorithms excel in scenarios with consecutive video frames, they fall short when dealing with the complexities of real-world fishery operations, where fish may overlap, bend, become occluded, or move between different camera views.
 
-<img src="images/figure6.png" alt="Alt text" width="1200">
+<img src="images/limitations of em.png" alt="Alt text" width="1200">
 
 Re-identification (Re-ID) emerges as a powerful solution to these challenges, proving highly beneficial for automated fish catch sorting on conveyor belts. Unlike standard tracking, Re-ID can assign and maintain a persistent, unique identity for each catch item even across non-consecutive frames or disparate camera views. This capability is crucial for scenarios prevalent on busy sorting belts, ensuring consistent recognition and tracking despite occlusions, changes in fish posture, or temporary loss of visibility.
 
