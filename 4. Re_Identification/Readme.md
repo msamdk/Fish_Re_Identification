@@ -56,10 +56,26 @@ Where,
 
 
 ___________________________________________________________________________________________________
+## Model Training
+This image shows the core training steps in detail. Here there are many important things to consider. when the original dataset is splitted to the training, validation and test categories the fish IDs are dispersed without a continuous format. This is causing problems during the accuracy calculation in the metric learning. To prevent unexpected errors, label encoding was performed to the images before feeding the images into the network. Simply, the fish ids are assigned a numerical ID after sorting the fish IDs in a particular subset (train, val or test) which starts from 0 to 1.
+If the fish IDs are in string format, the integers are assigned in a lexicographical order. This was done for all train, val and test data.
+
+The PK sampler is an important element in the pipeline due to several reasons
+1. Getting a good representation of diverse identities (diverse triplets)
+2. Prevent degenerate batches (with structured batch generation)
+3. Focus on challenging exmaples-most informative triplets
+
+PK sampler is only used in training data. The validation data are fed to the network as fixed batch sizes of 32
+
+The feature extractor modification is also an important asset. Usually, the feature extractor models comes with a final classification layer. but in this use case, we dont need to classify each individual. We need a feature representation of each individual fish. Therefor, the final classification layer is replaces with an identity layer which passes the high-dimensional feature vector from the backbone straight into an embedding head, which projects that high-dimensioal feature vector to form a low dimensional embedding vector with 512 dimensions.
+
+
 <img src="images/1.jpg" alt="Alt text" width="1200">
 
 
-4. Then the model is Evaluated using the test dataset
+##  model Evaluation using the test dataset
+
+In the evaluation, the test data was splited in to query set and a gallery set where one random instance is selected as the query and all 39 other instances are transfered to the gallery which includes all the other fish IDs as well
 
 <img src="images/2.jpg" alt="Alt text" width="1200">
 
