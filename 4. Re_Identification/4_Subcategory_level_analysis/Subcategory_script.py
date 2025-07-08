@@ -27,7 +27,7 @@ import torch.nn as nn
 from torchvision import transforms
 from torchvision.models import swin_t
 
-# --- Visualization and ML Imports (All re-included) ---
+# --- Visualization and ML Imports ---
 import plotly.graph_objects as go
 import plotly.colors
 from sklearn.manifold import TSNE
@@ -43,15 +43,15 @@ torch.cuda.manual_seed_all(SEED)
 print(f"--- Random seed set to {SEED} for reproducibility ---")
 
 
-# --- !!! IMPORTANT CONFIGURATION - CHANGE THESE !!! ---
+# Configuration ---
 
 # 1. Path to the trained model weights (.pth file)
 MODEL_PATH = "/work3/msam/Thesis/autofish/Re_ID_Experiments/new_order/swin_exp1_batch_16_hard_margin_0.5_euclidean/finetuned_metric_models/best_swin_triplet_finetuned_resize_pad.pth"
 
-# 2. Specify the model architecture
+# 2. model architecture
 MODEL_TYPE = "swin"
 
-# 3. Path to the METADATA FILE of the SUBSET you want to test
+# 3. Path to the METADATA FILE of the SUBSET that is needed to be tested (This is for identical case scenario where both gallery and query are from the same subset)
 SUBSET_METADATA_PATH = "/work3/msam/Thesis/autofish/Re_ID_Experiments/reid_subsets/separated_initial/metadata.json"
 
 # 4. Directory to save the output plots
@@ -89,7 +89,7 @@ class ResizeAndPadToSquare:
 # --- Analysis and Visualization Functions ---
 
 def calculate_metrics_manually(query_embeddings, query_labels, gallery_embeddings, gallery_labels, device):
-    # ... (The manual calculation function from the previous response) ...
+    
     query_embeddings = query_embeddings.to(device); gallery_embeddings = gallery_embeddings.to(device)
     query_labels = query_labels.to(device); gallery_labels = gallery_labels.to(device)
     dist_mat = torch.cdist(query_embeddings, gallery_embeddings)
@@ -109,7 +109,7 @@ def calculate_metrics_manually(query_embeddings, query_labels, gallery_embedding
     return r1_score.item(), map_score.item()
 
 def visualize_tsne_3d_interactive(embeddings, labels, save_path):
-    # ... (The advanced t-SNE function from our previous responses) ...
+   
     print("\n--- Generating Advanced t-SNE Visualization ---")
     if embeddings.shape[0] == 0: return
     perplexity_value = min(30, embeddings.shape[0] - 1)
@@ -130,7 +130,7 @@ def visualize_tsne_3d_interactive(embeddings, labels, save_path):
     print(f"--- Advanced visualization saved to '{save_path}' ---")
 
 def visualize_distance_distribution_kde(query_embeddings, query_labels, gallery_embeddings, gallery_labels, save_path, device):
-    # ... (The KDE function from our previous responses) ...
+   
     print("\nCalculating distances for KDE plot...")
     positive_distances, negative_distances = [], []
     query_embeddings, gallery_embeddings = query_embeddings.to(device), gallery_embeddings.to(device)
@@ -152,7 +152,6 @@ def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     # 1. Load Model, Metadata, and Extract Embeddings
-    # ... (This section is the same as the previous minimal script) ...
     print("--- Loading Model ---")
     model = FishReIDNetSwin(embedding_dim=EMBEDDING_DIM)
     model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
