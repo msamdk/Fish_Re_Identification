@@ -637,3 +637,4 @@ Detailed results of the performance metrices with the respective 95% confidence 
 | Other            | 0.951 (0.930 - 0.973)    | 0.900 (0.865 - 0.935)    | 0.965 (0.953 - 0.977)     | 0.938 (0.928 - 0.948)       |
 
 
+<img src="images/yolo results.png" alt="Alt text" width="1500">
