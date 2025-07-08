@@ -13,7 +13,7 @@ Furthermore, Re-ID extends beyond immediate sorting tasks to offer profound bene
 
 <img src="images/figure6.png" alt="Alt text" width="1200">
 
-# YAY! Some cool results (Feature embeddings of fish in 3D space)
+# YAY! Some cool results (Feature embeddings of fish in a representation space)
 
 | Swin-T (Vision Transformer) - 41.6% mAP@R & 90.3% R1 | ResNet 50 (CNN) - 13.56% mAP@R & 70.26% R1|
 | :---: | :---: |
