@@ -1,6 +1,3 @@
-### fdhdkfv
-## kjskgfjsd
-# kdjlfkg
 <h2>Object Re-Identification in Fisheries Science</h2>
 
 ![Demo GIF](images/catch.gif)
