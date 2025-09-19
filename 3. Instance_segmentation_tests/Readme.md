@@ -29,7 +29,7 @@ from pathlib import Path
 # Defining Paths
 coco_path = f"/work3/msam/Thesis/autofish/annotations.json"
 image_groups_dir = f"/work3/msam/Thesis/autofish"
-output_base_dir = f"/work3/msam/Thesis/segmentation/yolodataset_seg"  # Changed name for segmentation
+output_base_dir = f"/work3/msam/Thesis/segmentation/yolodataset_seg"  
 os.makedirs(output_base_dir, exist_ok=True)
 
 # Keeping the original split as paper
