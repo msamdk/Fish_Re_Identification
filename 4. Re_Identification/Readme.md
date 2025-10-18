@@ -19,6 +19,10 @@ Furthermore, Re-ID extends beyond immediate sorting tasks to offer profound bene
 | :---: | :---: |
 | ![Demo GIF 1](images/swin.gif) | ![Demo GIF 2](images/resnet.gif) |
 
+# Latest Update: UMAP results. 
+![Demo GIF 1](images/umap.gif)
+
+In here, the clusters represent a better arrangement than the t-SNE results. The right side shows the species-wise clusters, and the left side shows the individual clusters inside the species cluster. The individual clusters represent the specific individuals that belong to the large species cluster.
 
 # Fish Re-identification Pipeline and process
 
