@@ -6,7 +6,7 @@
 
 <img src="images/reid.jpg" alt="Alt text" width="1200">
 
-# YAY! Some cool results (Feature embeddings of fish in a representation space)
+# t-SNE visualizations of best performing varíants of both ResNet-50 (256 batch size) and Swin-T (16 batch size)
 
 | Swin-T (Vision Transformer) - 41.6% mAP@R & 90.3% R1 | ResNet 50 (CNN) - 13.56% mAP@R & 70.26% R1|
 | :---: | :---: |
