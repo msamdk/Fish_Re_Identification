@@ -10,7 +10,7 @@ In fisheries technology, accurately tracking the number of individuals entering 
 To address this, developing robust Re-ID models is critical. These models must maintain accurate identification of each individual while ensuring efficiency and reliability. This project will follow a structured approach to achieve this goal, incorporating advanced tracking techniques and AI-driven methodologies to improve fish identification and monitoring.
 
 
-[![arXiv](https://img.shields.io/badge/arXiv-2512.08400-b31b1b.svg)](https://arxiv.org/abs/2512.08400)
+[![arXiv](https://img.shields.io/badge/arXiv-Access.Paper-b31b1b.svg)](https://arxiv.org/abs/2512.08400)
 
 ## **Dataset Structure for COCO Annotations in AutoFish data**
 
