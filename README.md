@@ -11,7 +11,7 @@ To address this, developing robust Re-ID models is critical. These models must m
 
 -----------------------------------------------------------------------------
 
-# Read our Paper in ArXiv
+## Read our Paper in ArXiv
 [![arXiv](https://img.shields.io/badge/arXiv-Access_Paper-b31b1b.svg)](https://arxiv.org/abs/2512.08400)
 
 
