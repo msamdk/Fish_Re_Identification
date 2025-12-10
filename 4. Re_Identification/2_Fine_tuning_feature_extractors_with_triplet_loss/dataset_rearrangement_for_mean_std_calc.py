@@ -77,19 +77,17 @@ def organize_images_by_id(source_folder_path, output_base_folder_path):
 
 # --- How to use the script ---
 if __name__ == "__main__":
-    # IMPORTANT: SET THESE PATHS CORRECTLY!
-
     # Path to your folder that currently contains all the images (e.g., 'all_images')
     # As per your image, this folder is one level up from where the files are.
-    # If your 'all_images' folder is at '/work3/msam/Thesis/autofish/metric_learning_instance_split/train_is/all_images'
-    current_images_folder = "/work3/msam/Thesis/autofish/metric_learning_instance_split/train_is" # EXAMPLE: "/work3/msam/Thesis/autofish/dataset_flat/all_images"
+    # If your 'all_images' folder is at '/path/all_images'
+    current_images_folder = "/work3/msam/Thesis/autofish/metric_learning_instance_split/train_is" 
 
     # Path where you want the new ID-organized folders to be created
     # For example, this could be a new folder like "train_is_organized_by_id"
     # at the same level as your 'train_is' folder.
-    output_organized_folder = "/work3/msam/Thesis/autofish/metric_learning_instance_split/calibration_folder" # EXAMPLE: "/work3/msam/Thesis/autofish/dataset_organized_by_id"
+    output_organized_folder = "/work3/msam/Thesis/autofish/metric_learning_instance_split/calibration_folder" 
 
-    # --- Safety Check ---
+    
     # Check if the paths have been changed from the placeholder examples
     if current_images_folder == "/path/to/your/all_images" or \
        output_organized_folder == "/path/to/your/new_organized_dataset_folder":
