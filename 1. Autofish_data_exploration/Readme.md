@@ -18,7 +18,10 @@ Each folder contains multiple images, but **all images within a folder start wit
 <img src="images/image 1.png" alt="Alt text" width="500">
 
 ## Subcategory visualization
-Each fish is given a unique colour which can be seen in each image alongside with their unique Fish ID
+Each fish is given a unique colour which can be seen in each image alongside with their unique Fish ID.
+The following images were sourced from group_10 in test dateset of the Autofish dataset
+
+
 <img src="images/subcate.jpg" alt="Alt text" width="1000">
 
 ## **Dataset Organization**
