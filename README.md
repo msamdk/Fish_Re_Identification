@@ -1,14 +1,19 @@
-<h2>Object Re-Identification in Electronic Monitoring (EM) in Fisheries</h2>
-Object re-identification (Re-ID) is a crucial technology with real-world industrial applications, including fisheries science. The ability to count and track individual fish over time and space enhances monitoring and behavioural analysis, providing valuable insights into fisheries management.
+<h1>Object Re-Identification in Electronic Monitoring (EM) in Fisheries</h1>
 
-In fisheries technology, accurately tracking the number of individuals entering a fishing gear—especially active gears like trawls—is essential. However, challenges arise when fish move with the gear, re-enter, or appear in multiple frames at different times, leading to miscounts and confusion in underwater video observations.
+## Context & Motivation Object 
 
-To address this, developing robust Re-ID models is critical. These models must accurately identify each individual while ensuring efficiency and reliability. This project will follow a structured approach to achieve this goal, incorporating advanced tracking techniques and AI-driven methodologies to improve fish identification and monitoring.
+Re-identification (Re-ID) is a pivotal technology for modernizing fisheries science. In Electronic Monitoring (EM) systems, cameras record catch handling on fishing vessels to document species composition, length distributions, and bycatch (including PET species). Currently, reviewing this footage is a manual, labor-intensive, and costly process. While early automation focused on simple species recognition, effective stock assessment requires higher precision: the ability to count, track, and measure individual fish. Relying solely on classification fails to distinguish between new and previously counted individuals, leading to inaccurate biomass estimates.
+
+Project Objective This study addresses the challenge of keeping track of every commercial catch species by leveraging Object Re-ID deep learning techniques. While Re-ID is typically used for tracking objects across different camera views, we apply it here to the Autofish dataset—a collection of images mimicking conveyor belt environments with fish in randomized spatial configurations. The goal is to develop a robust methodology that can identify unique individuals regardless of their arrangement, laying the foundation for automated counting and length estimation.
+
+Technical Approach We evaluate and benchmark two distinct deep learning architectures to determine the best approach for the marine domain:
+
+Convolutional Neural Networks (CNN): Represented by ResNet-50, testing standard feature extraction capabilities.
+
+Vision Transformers (ViT): Represented by Swin Transformer Tiny, testing the efficacy of attention mechanisms in capturing global context on sorting belts.
 
 <img src="images/EM_FIsh.png" alt="Alt text" width="1200">
 3D modelled diagram showing the Electronic Monitoring (EM) systems equipped with Computer vision algorithms that can identify species and track them to obtain a precise count for each species.
-
-
 
 -----------------------------------------------------------------------------
 
