@@ -11,6 +11,7 @@ To address this, developing robust Re-ID models is critical. These models must m
 
 
 [![arXiv](https://img.shields.io/badge/arXiv-Access_Paper-b31b1b.svg)](https://arxiv.org/abs/2512.08400)
+[Towards Visual Re-Identification of Fish using Fine-Grained Classification for Electronic Monitoring in Fisheries](https://arxiv.org/abs/2512.08400)
 
 ## **Dataset Structure for COCO Annotations in AutoFish data**
 
