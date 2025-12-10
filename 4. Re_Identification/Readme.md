@@ -29,8 +29,17 @@ UMAP or the Uniform Manifold Approximation and Projection was also utlized to vi
 
 In here, the clusters represent a better arrangement than the t-SNE results. The right side shows the species-wise clusters, and the left side shows the individual clusters inside the species cluster. The individual clusters represent the specific individuals that belong to the large species cluster.
 
-# Fish Re-identification Pipeline and process
+To evaluate the cluster quality we computed the following clustering performance metrics on gallery set (test dataset)
 
+## External Validation Metrics (K-Means and Ground Truth)
+
+These metrics measure how well the unsupervised K-Means clusters match the actual ground truth labels (Fish_IDs). 
+1. ARI (Adjusted Rand Index) = 0.4487 (Question it answers: How well do the clusters I found match the true labels?) --> Measured between -1 and 1
+2. Homogeneity = 0.7652 (Question it answers: Are the clusters pure and did they get all the members?) --> Measured between 0 and 1
+3. Completeness = 0.7736 (Are all members of an ID in the same cluster?) --> Measured between 0 and 1
+
+   
+------------------------------------------------------------------------------------------------------
 The Re-Identification experiments were done to represent the pre-trained (off-the-shelf) model performance using zero-shot instance retrieval and the main experiments include the finetuning the feature extractor models (Swin-T and ResNet) with Triplet learning
 
 The Finetuning Pipeline includes
@@ -42,7 +51,7 @@ Therefore the batch size = P*K
    - P-Positive (different image of the same fish ID)
    - N- Negative (different fish ID)
   
-Triplet margin miner is used to identify the triplets. Hard triplets are used in here. Hard triplets follow the condition that the distance (A,P) > distance (A,N) which simulates the worst cases where the model cannot identify same fish ID. so the model will select these highly confusing pairs and form the triplets. so the model can learn sublte features of two highly similar fish individuals.
+Triplet margin miner is used to identify the triplets. Hard triplets (hard negatives and hard positives) are used in here. Hard triplets follow the condition that the distance (A,P) > distance (A,N) which simulates the worst cases where the model cannot identify same fish ID. so the model will select these highly confusing pairs and form the triplets. so the model can learn sublte features of two highly similar fish individuals.
 
 ## Triplet loss function
 
