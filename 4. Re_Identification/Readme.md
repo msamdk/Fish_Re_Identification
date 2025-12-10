@@ -16,6 +16,8 @@ This could be a subsampling station in the fishing vessel.
 
 # t-SNE visualizations of best performing varíants of both ResNet-50 (256 batch size) and Swin-T (16 batch size)
 
+We ultilized t-SNE (t-Distributed Stochastic Neighbour Embedding) as the main dimensionality reduction technique to visualize the cluster quality. In the paper we only discussed this in surface. But we have performed the cluster quality analytics as well. 
+
 | Swin-T (Vision Transformer) - 41.6% mAP@R & 90.3% R1 | ResNet 50 (CNN) - 13.56% mAP@R & 70.26% R1|
 | :---: | :---: |
 | ![Demo GIF 1](images/swin.gif) | ![Demo GIF 2](images/resnet.gif) |
