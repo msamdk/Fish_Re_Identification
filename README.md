@@ -20,12 +20,12 @@ We evaluate and benchmark two distinct deep learning architectures to determine 
 <table>
   <tr>
     <td align="center">
-      <img src="Art_1_beam.gif" width="300" />
+      <img src="Images/Art_1_beam.gif" width="300" />
       <br />
       <b>ResNet-50 Results</b>
     </td>
     <td align="center">
-      <img src="belt sort.gif" width="300" />
+      <img src="images/belt sort.gif" width="300" />
       <br />
       <b>Swin Transformer Results</b>
     </td>
