@@ -11,7 +11,21 @@ To address this, developing robust Re-ID models is critical. These models must m
 
 
 [![arXiv](https://img.shields.io/badge/arXiv-Access_Paper-b31b1b.svg)](https://arxiv.org/abs/2512.08400)
-[Towards Visual Re-Identification of Fish using Fine-Grained Classification for Electronic Monitoring in Fisheries](https://arxiv.org/abs/2512.08400)
+
+## Citation
+If you use this code or paper in your research, please cite it as follows:
+
+```bibtex
+@misc{thilakarathna2025visualreidentificationfishusing,
+      title={Towards Visual Re-Identification of Fish using Fine-Grained Classification for Electronic Monitoring in Fisheries}, 
+      author={Samitha Nuwan Thilakarathna and Ercan Avsar and Martin Mathias Nielsen and Malte Pedersen},
+      year={2025},
+      eprint={2512.08400},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2512.08400}, 
+}
+
 
 ## **Dataset Structure for COCO Annotations in AutoFish data**
 
