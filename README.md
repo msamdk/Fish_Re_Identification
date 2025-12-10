@@ -20,12 +20,12 @@ We evaluate and benchmark two distinct deep learning architectures to determine 
 <table>
   <tr>
     <td align="center">
-      <img src="images/Art_1_beam.gif" width="600" />
+      <img src="images/Art_1_beam.gif" width="400" />
       <br />
       <b>EM system camera</b>
     </td>
     <td align="center">
-      <img src="images/belt sort.gif" width="600" />
+      <img src="images/belt sort.gif" width="400" />
       <br />
       <b>Conveyor belt setup</b>
     </td>
