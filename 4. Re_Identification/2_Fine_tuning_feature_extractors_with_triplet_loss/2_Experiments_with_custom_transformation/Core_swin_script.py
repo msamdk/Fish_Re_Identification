@@ -12,7 +12,7 @@
 # --- Configured for ID-DISJOINT TRAIN/VALIDATION SETS ---
 # --- Scheduler: ReduceLROnPlateau; Plotting: MAP@R ---
 # --- Transforms: ResizeAndPadToSquare with Custom Mean/Std ---
-#####script pythin file name -- swin_finetune_extended_11dis.py
+
 
 import os
 import json
@@ -34,7 +34,7 @@ import torchvision.transforms.functional as TF # For ResizeAndPadToSquare
 from torch.utils.data import Dataset, DataLoader, BatchSampler, Sampler
 from torchvision import transforms
 #from torchvision.models import swin_t, Swin_T_Weights
-from torchvision.models import swin_t, Swin_T_Weights # Changed from _t to _b
+from torchvision.models import swin_t, Swin_T_Weights 
 from tqdm import tqdm
 
 # --- Plotting Import ---
@@ -66,7 +66,7 @@ print(f"\n--- Configuration ---")
 print(f"Using device: {DEVICE}")
 
 # --- Paths  ---
-BASE_PATH = "/work3/msam/Thesis/autofish/" # Adjust if necessary
+BASE_PATH = "/path/autofish/" 
 OUTPUT_TRAIN_CROP_DIR = os.path.join(BASE_PATH, "metric_learning_gt_crops/train")
 OUTPUT_VAL_CROP_DIR   = os.path.join(BASE_PATH, "metric_learning_gt_crops/val")  
 
@@ -100,12 +100,11 @@ LEARNING_RATE = 1e-5
 NUM_EPOCHS    = 300
 P_IDENTITIES  = 32   
 K_INSTANCES   = 8   
-MARGIN        = 0.5 # Using float is good practice
+MARGIN        = 0.5 
 EMBEDDING_DIM = 512 
 WEIGHT_DECAY  = 1e-4
 BATCH_SIZE    = P_IDENTITIES * K_INSTANCES 
 IMG_SIZE      = 224 
-# <-- CORRECTION: The output dimension for Swin-T is 768, not 786. This is a critical fix.
 BACKBONE_OUTPUT_DIM = 768 # For Swin-T
 NUM_WORKERS   = 4 
 
@@ -118,7 +117,6 @@ print("--- Hyperparameters ---")
 print(f"LEARNING_RATE: {LEARNING_RATE}, NUM_EPOCHS: {NUM_EPOCHS}, MARGIN: {MARGIN}")
 print(f"P_IDENTITIES: {P_IDENTITIES}, K_INSTANCES: {K_INSTANCES}, BATCH_SIZE: {BATCH_SIZE}")
 print(f"EMBEDDING_DIM: {EMBEDDING_DIM}, WEIGHT_DECAY: {WEIGHT_DECAY}, IMG_SIZE: {IMG_SIZE}")
-# <-- CORRECTION: Changed print statement to reflect Swin-T
 print(f"BACKBONE_OUTPUT_DIM (Swin-T): {BACKBONE_OUTPUT_DIM}") 
 print(f"Using ImageNet Normalization: MEAN={CUSTOM_MEAN}, STD={CUSTOM_STD}")
 print("-" * 20)
@@ -126,7 +124,7 @@ print("-" * 20)
 
 # --- Custom Transform Class ---
 class ResizeAndPadToSquare:
-    # ... (This class is correct, no changes needed) ...
+   
     def __init__(self, output_size_square, fill_color=(0, 0, 0)):
         assert isinstance(output_size_square, int)
         self.output_size = output_size_square
@@ -160,7 +158,6 @@ class FishReIDNet(nn.Module):
     def forward(self, x):
         features = self.backbone(x)
         embeddings = self.embedding_head(features)
-        # --- THE FIX: Normalize embeddings to unit length ---
         return F.normalize(embeddings, p=2, dim=1)
         
 # --- Custom Dataset ---
