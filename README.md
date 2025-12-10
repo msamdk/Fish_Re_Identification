@@ -25,7 +25,7 @@ If you use this code or paper in your research, please cite it as follows:
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2512.08400}, 
 }
-
+```
 
 ## **Dataset Structure for COCO Annotations in AutoFish data**
 
