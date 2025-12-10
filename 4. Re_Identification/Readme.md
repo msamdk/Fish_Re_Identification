@@ -6,6 +6,14 @@
 
 <img src="images/reid.jpg" alt="Alt text" width="1200">
 
+A conceptual diagram illustrating re-identification (Re-ID) applied to an Electronic monitoring system
+with a conveyor belt. (a) An individual is detected and assigned a unique identity (ID-25). (b-c) The system
+performs re-identification, successfully matching the fish after it’s handled, disappears, and reappears with a
+new orientation within the same camera view on the conveyor belt. (d) The model’s capacity for long-term,
+inter-camera Re-ID is shown, correctly matching ID-25 hours later in a different location under a new camera.
+This could be a subsampling station in the fishing vessel.
+
+
 # t-SNE visualizations of best performing varíants of both ResNet-50 (256 batch size) and Swin-T (16 batch size)
 
 | Swin-T (Vision Transformer) - 41.6% mAP@R & 90.3% R1 | ResNet 50 (CNN) - 13.56% mAP@R & 70.26% R1|
