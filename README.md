@@ -17,7 +17,22 @@ We evaluate and benchmark two distinct deep learning architectures to determine 
 <img src="images/EM_FIsh.png" alt="Alt text" width="1200">
 3D modelled diagram showing the Electronic Monitoring (EM) systems equipped with Computer vision algorithms that can identify species and track them to obtain a precise count for each species.
 
------------------------------------------------------------------------------
+<table>
+  <tr>
+    <td align="center">
+      <img src="Art_1_beam.gif" width="300" />
+      <br />
+      <b>ResNet-50 Results</b>
+    </td>
+    <td align="center">
+      <img src="belt sort.gif" width="300" />
+      <br />
+      <b>Swin Transformer Results</b>
+    </td>
+  </tr>
+</table>
+
+
 
 ## Read our Paper in ArXiv
 [![arXiv](https://img.shields.io/badge/arXiv-Access_Paper-b31b1b.svg)](https://arxiv.org/abs/2512.08400)
