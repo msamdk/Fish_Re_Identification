@@ -6,7 +6,7 @@ Re-identification (Re-ID) is a pivotal technology for modernizing fisheries scie
 
 ## Project Objective 
 
-This study addresses the challenge of keeping track of every commercial catch species by leveraging Object Re-ID deep learning techniques. While Re-ID is typically used for tracking objects across different camera views, we apply it here to the Autofish dataset—a collection of images mimicking conveyor belt environments with fish in randomized spatial configurations. The goal is to develop a robust methodology that can identify unique individuals regardless of their arrangement, laying the foundation for automated counting and length estimation.
+This study addresses the challenge of keeping track of every commercial catch species by leveraging Object Re-ID deep learning techniques. While Re-ID is typically used for tracking objects across different camera views, we apply it here to the Autofish dataset—a collection of images mimicking conveyor belt environments with fish in randomized spatial configurations. The goal is to develop a robust methodology that can identify unique individuals regardless of their arrangement, laying the foundation for automated counting and length estimation (Here, we focus only on the Re-ID aspect, not the length measurements).
 
 ## Technical Approach 
 
