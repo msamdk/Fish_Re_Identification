@@ -19,13 +19,12 @@ import shutil # For creating directories
 from tqdm import tqdm # For progress bar
 import time
 
-# --- !!! IMPORTANT CONFIGURATION - CHANGE THESE !!! ---
 
-# 1. Path to your main AutoFish dataset directory
-BASE_PATH = "/work3/msam/Thesis/autofish/" # <--- CHANGE THIS
+# 1. Path to the main AutoFish dataset directory
+BASE_PATH = "/path/to/autofish/folder/" 
 
 # 2. Path to your main annotations file
-COCO_ANN_PATH = os.path.join(BASE_PATH, "annotations.json") # <--- CHANGE THIS if different
+COCO_ANN_PATH = os.path.join(BASE_PATH, "annotations.json") 
 
 # 3. Define your Training, Validation, and Test Group Names
 print("Defining Train/Val/Test groups according to the AutoFish paper split...")
@@ -36,21 +35,17 @@ TEST_IDS  = [10, 14, 20, 21, 22]
 # Generate the list of group name strings (e.g., "group_01", "group_02")
 TRAIN_GROUP_NAMES = [f"group_{i:02d}" for i in TRAIN_IDS]
 VAL_GROUP_NAMES   = [f"group_{i:02d}" for i in VAL_IDS]
-# --- MODIFICATION 1: Define Test Group Names ---
 TEST_GROUP_NAMES  = [f"group_{i:02d}" for i in TEST_IDS]
 
 
 # 4. Define WHERE to save the output crops and metadata
-#    These directories will be CREATED by this script.
 OUTPUT_BASE_DIR       = os.path.join(BASE_PATH, "crop_dataset2/metric_learning_gt_crops") # Main output folder
 OUTPUT_TRAIN_CROP_DIR = os.path.join(OUTPUT_BASE_DIR, "train")
 OUTPUT_VAL_CROP_DIR   = os.path.join(OUTPUT_BASE_DIR, "val")
-# --- MODIFICATION 2: Define Test Paths ---
 OUTPUT_TEST_CROP_DIR  = os.path.join(OUTPUT_BASE_DIR, "test")
 
 TRAIN_METADATA_PATH = os.path.join(OUTPUT_TRAIN_CROP_DIR, "train_crop_metadata.json")
 VAL_METADATA_PATH   = os.path.join(OUTPUT_VAL_CROP_DIR, "val_crop_metadata.json")
-# --- MODIFICATION 3: Define Test Metadata Path ---
 TEST_METADATA_PATH  = os.path.join(OUTPUT_TEST_CROP_DIR, "test_crop_metadata.json")
 
 
@@ -62,13 +57,13 @@ print(f"Base Dataset Path: {BASE_PATH}")
 print(f"Annotations Path: {COCO_ANN_PATH}")
 print(f"Training Groups ({len(TRAIN_GROUP_NAMES)}): {TRAIN_GROUP_NAMES}")
 print(f"Validation Groups ({len(VAL_GROUP_NAMES)}): {VAL_GROUP_NAMES}")
-print(f"Test Groups ({len(TEST_GROUP_NAMES)}): {TEST_GROUP_NAMES}") # Added for clarity
+print(f"Test Groups ({len(TEST_GROUP_NAMES)}): {TEST_GROUP_NAMES}") 
 print(f"Output Train Crops: {OUTPUT_TRAIN_CROP_DIR}")
 print(f"Output Val Crops: {OUTPUT_VAL_CROP_DIR}")
-print(f"Output Test Crops: {OUTPUT_TEST_CROP_DIR}") # Added for clarity
+print(f"Output Test Crops: {OUTPUT_TEST_CROP_DIR}") 
 print("-" * 30)
 
-# --- Helper Functions (No changes needed here) ---
+# --- Helper Functions ---
 
 def load_and_filter_annotations(coco_path, base_img_path, target_group_names):
     """Loads COCO annotations and filters for specific image groups."""
@@ -217,7 +212,7 @@ def crop_image_from_gt_mask(img_np, gt_mask_np, padding=0):
     return fish_crop if fish_crop.size > 0 else None
 
 
-# --- Main Data Preparation Function (No changes needed here) ---
+# --- Main Data Preparation Function ---
 def prepare_split_data(split_name, group_names, output_crop_dir, metadata_path):
     print(f"\n--- Preparing {split_name} Set ---")
     prep_start_time = time.time()
@@ -323,7 +318,7 @@ def prepare_split_data(split_name, group_names, output_crop_dir, metadata_path):
 if __name__ == "__main__":
     overall_start_time = time.time()
 
-    # --- MODIFICATION 4: Comment out or remove Train and Val preparation ---
+    # Comment out or remove Train and Val preparation ---
     print("\nSkipping Train set preparation as requested.")
      prepare_split_data(
          split_name="Training",
@@ -340,7 +335,7 @@ if __name__ == "__main__":
          metadata_path=VAL_METADATA_PATH
      )
 
-    # --- MODIFICATION 5: Add Test Data Preparation ---
+    # Add Test Data Preparation ---
     prepare_split_data(
         split_name="Test",
         group_names=TEST_GROUP_NAMES,
