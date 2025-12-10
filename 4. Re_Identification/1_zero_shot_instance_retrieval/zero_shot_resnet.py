@@ -27,7 +27,7 @@ import timm
 from tqdm import tqdm
 from pytorch_metric_learning.utils.accuracy_calculator import AccuracyCalculator
 
-# --- Configuration ---
+
 # Set a seed for reproducibility of the random query/gallery split
 SEED = 1234
 random.seed(SEED)
@@ -42,14 +42,14 @@ print(f"Using device: {DEVICE}")
 print(f"Random seed set to {SEED} for reproducibility.")
 
 
-# --- !!! IMPORTANT: PLEASE VERIFY THESE PATHS AND PARAMETERS !!! ---
+# paths
 BASE_PATH        = "/work3/msam/Thesis/autofish/"
 COCO_ANN_PATH    = os.path.join(BASE_PATH, "annotations.json")
 EXTRACTOR_TYPE   = 'resnet50'  # Options: 'resnet50', 'swin_t', 'dinov2_vits14'
 TEST_GROUP_NAMES = ["group_10", "group_14", "group_20", "group_21", "group_22"]
 IMG_SIZE         = 224
 CROP_PADDING     = 2
-# --- End Configuration ---
+
 
 
 # --- Determine Feature Dimension based on Extractor Type ---
@@ -83,7 +83,7 @@ print("Feature extractor loaded successfully.")
 # --- Data Structures & Preprocessing ---
 AnnotationInfo = namedtuple("AnnotationInfo", ["image_path", "annotation_id", "gt_fish_id", "img_h", "img_w", "gt_mask_data"])
 
-# FIX 2: Added the missing class definition
+
 class ResizeAndPadToSquare:
     """
     Resizes an image to fit within a square of output_size,
@@ -106,7 +106,7 @@ class ResizeAndPadToSquare:
         padded_img.paste(resized_img, (pad_left, pad_top))
         return padded_img
 
-# FIX 1: Corrected the normalization to use ImageNet stats for zero-shot evaluation
+
 transform = transforms.Compose([
     ResizeAndPadToSquare(IMG_SIZE),
     transforms.ToTensor(),
