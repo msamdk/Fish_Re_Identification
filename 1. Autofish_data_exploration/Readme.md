@@ -23,7 +23,7 @@ Each fish is given a unique colour which can be seen in each image alongside wit
 
 ## **Dataset Organization**
 The dataset follows the **COCO JSON format**, containing three main sections:
-<img src="images/cocojson.png" alt="Alt text" width="500">
+<img src="images/cocojson.jpg" alt="Alt text" width="500">
 
 ### **1. Images**
 Each image entry includes:
