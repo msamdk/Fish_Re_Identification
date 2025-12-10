@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[4]:
+# In[1]:
 
 
 #!/usr/bin/env python
@@ -74,8 +74,8 @@ TRAIN_METADATA_PATH = os.path.join(OUTPUT_TRAIN_CROP_DIR, "train_crop_metadata.j
 VAL_METADATA_PATH   = os.path.join(OUTPUT_VAL_CROP_DIR, "val_crop_metadata.json")
 
 # Modified Experiment Name to reflect transform and scheduler change
-EXPERIMENT_NAME = "swin_T_exp_10_batch_16_hard_margin_0.5_euclidean_LR_WD_MAR_1_pytorch" 
-EXPERIMENT_BASE_DIR = os.path.join(BASE_PATH, "Re_ID_Experiments/new_order", EXPERIMENT_NAME)
+EXPERIMENT_NAME = "Swin_T_L2_256_batch" 
+EXPERIMENT_BASE_DIR = os.path.join(BASE_PATH, "Re_ID_Experiments/new_order/L2_norm", EXPERIMENT_NAME)
 
 MODEL_SAVE_DIR = os.path.join(EXPERIMENT_BASE_DIR, "finetuned_metric_models")
 os.makedirs(MODEL_SAVE_DIR, exist_ok=True)
@@ -98,9 +98,9 @@ print("-" * 20)
 # --- Training Hyperparameters ---
 LEARNING_RATE = 1e-5
 NUM_EPOCHS    = 300
-P_IDENTITIES  = 4   
-K_INSTANCES   = 4   
-MARGIN        = 1.0 # Using float is good practice
+P_IDENTITIES  = 32   
+K_INSTANCES   = 8   
+MARGIN        = 0.5 # Using float is good practice
 EMBEDDING_DIM = 512 
 WEIGHT_DECAY  = 1e-4
 BATCH_SIZE    = P_IDENTITIES * K_INSTANCES 
@@ -147,11 +147,10 @@ class ResizeAndPadToSquare:
 class FishReIDNet(nn.Module):
     def __init__(self, backbone_out_dim, embedding_dim, pretrained=True):
         super().__init__()
-        # <-- CORRECTION: Changed model name for clarity
         model_name = "Swin Transformer Tiny"
         print(f"Initializing FishReIDNet with {model_name} backbone (pretrained={pretrained})")
         weights = Swin_T_Weights.IMAGENET1K_V1 if pretrained else None
-        self.backbone = swin_t(weights=weights) # This line is correct
+        self.backbone = swin_t(weights=weights)
         self.backbone.head = nn.Identity()
         self.embedding_head = nn.Sequential(
             nn.Linear(backbone_out_dim, embedding_dim)
@@ -161,7 +160,8 @@ class FishReIDNet(nn.Module):
     def forward(self, x):
         features = self.backbone(x)
         embeddings = self.embedding_head(features)
-        return embeddings
+        # --- THE FIX: Normalize embeddings to unit length ---
+        return F.normalize(embeddings, p=2, dim=1)
         
 # --- Custom Dataset ---
 class FishCropDataset(Dataset):
