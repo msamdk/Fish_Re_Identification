@@ -171,12 +171,12 @@ Each annotation entry includes:
 
 <h2>pycocotools</h2>
 
-Use Pycocotools to explore the dataset
+Install Pycocotools
 ```python
 
 pip install pycocotools
 ```
-After installation you can get to know about the functions in the library
+After installation, you can get to know about the functions in the library
 ```python
 help(COCO)
 ```
@@ -213,7 +213,7 @@ print(img_ids)
 
 **Annotation ID**
 
-getAnnIds() function is crucial for extracting specific annotation ids that match certain image IDs, category IDs or other criteria
+getAnnIds() function is crucial for extracting specific annotation IDs that match certain image IDs, category IDs or other criteria
 
 **What does it do?**
 
