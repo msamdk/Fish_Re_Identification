@@ -7,8 +7,8 @@ Re-identification (Re-ID) is a pivotal technology for modernizing fisheries scie
 Project Objective This study addresses the challenge of keeping track of every commercial catch species by leveraging Object Re-ID deep learning techniques. While Re-ID is typically used for tracking objects across different camera views, we apply it here to the Autofish dataset—a collection of images mimicking conveyor belt environments with fish in randomized spatial configurations. The goal is to develop a robust methodology that can identify unique individuals regardless of their arrangement, laying the foundation for automated counting and length estimation.
 
 Technical Approach We evaluate and benchmark two distinct deep learning architectures to determine the best approach for the marine domain:
-      - Convolutional Neural Networks (CNN): Represented by ResNet-50, testing standard feature extraction capabilities.
-      - Vision Transformers (ViT): Represented by Swin Transformer Tiny, testing the efficacy of attention mechanisms in capturing global context on sorting belts.
+- Convolutional Neural Networks (CNN): Represented by ResNet-50, testing standard feature extraction capabilities.
+- Vision Transformers (ViT): Represented by Swin Transformer Tiny, testing the efficacy of attention mechanisms in capturing global context on sorting belts.
 
 <img src="images/EM_FIsh.png" alt="Alt text" width="1200">
 3D modelled diagram showing the Electronic Monitoring (EM) systems equipped with Computer vision algorithms that can identify species and track them to obtain a precise count for each species.
