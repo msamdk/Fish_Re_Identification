@@ -23,6 +23,8 @@ We ultilized t-SNE (t-Distributed Stochastic Neighbour Embedding) as the main di
 | ![Demo GIF 1](images/swin.gif) | ![Demo GIF 2](images/resnet.gif) |
 
 # UMAP Visualization of ResNet-50 and Swin-T (New). 
+
+UMAP or the Uniform Manifold Approximation and Projection was also utlized to visualize the test embeddings.
 ![Demo GIF 1](images/umap.gif)
 
 In here, the clusters represent a better arrangement than the t-SNE results. The right side shows the species-wise clusters, and the left side shows the individual clusters inside the species cluster. The individual clusters represent the specific individuals that belong to the large species cluster.
