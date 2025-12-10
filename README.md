@@ -1,7 +1,7 @@
 <h2>Object Re-Identification in Electronic Monitoring (EM) in Fisheries</h2>
 
 
-<img src="images/EM_Fish.png" alt="Alt text" width="1200">
+<img src="images/EM_FIsh.png" alt="Alt text" width="1200">
 
 Object re-identification (Re-ID) is a crucial technology with real-world industrial applications, including fisheries science. The ability to count and track individual fish over time and space enhances monitoring and behavioral analysis, providing valuable insights into fisheries management.
 
