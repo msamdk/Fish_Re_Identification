@@ -2,14 +2,9 @@
 
 <img src="images/limitations of em.png" alt="Alt text" width="1200">
 
-Re-identification (Re-ID) emerges as a powerful solution to these challenges, proving highly beneficial for automated fish catch sorting on conveyor belts. Unlike standard tracking, Re-ID can assign and maintain a persistent, unique identity for each catch item even across non-consecutive frames or disparate camera views. This capability is crucial for scenarios prevalent on busy sorting belts, ensuring consistent recognition and tracking despite occlusions, changes in fish posture, or temporary loss of visibility.
+# Schematic Diagram of the concept of Re-ID application in the fisheries context
 
-The core advantage of Re-ID for accurate catch quantification lies in its ability to ensure precise individual data association. By maintaining a stable ID for each fish, all captured data points – such as species identification and length measurements – can be reliably linked to the correct individual throughout the entire image acquisition process. This eliminates data fragmentation and common errors like double-counting or misclassifying fish, leading to significantly more precise sorting, grading, and a trustworthy foundation for catch quantification. Advanced Re-ID systems, often leveraging segmentation masks and deep neural networks, can even associate different visible parts of a fish's body with the same individual, maintaining accurate records even in the most challenging situations. This comprehensive and consolidated data for each fish will be invaluable for meeting crucial regulatory criteria, including Minimum Landing Size (MLS) and discard regulations (Landing Obligation).
-
-Furthermore, Re-ID extends beyond immediate sorting tasks to offer profound benefits for long-term monitoring. It enables the non-invasive monitoring of individual fish over extended periods and across various camera views. This capability facilitates several downstream tasks, such as precise length measurements, by allowing for the aggregation of data from multiple observations of the same individual. Therefore, this foundational study explores the immense potential of integrating Re-identification into fisheries for accurate and reliable catch monitoring, paving the way for more efficient and compliant operations.
-
-
-<img src="images/figure6.png" alt="Alt text" width="1200">
+<img src="images/reid.jpg" alt="Alt text" width="1200">
 
 # YAY! Some cool results (Feature embeddings of fish in a representation space)
 
