@@ -4,7 +4,7 @@
 
 # Schematic Diagram of the concept of Re-ID application in the fisheries context
 
-<img src="images/reid.jpg" alt="Alt text" width="1200">
+<img src="images/reid.jpg" alt="Alt text" width="800">
 
 A conceptual diagram illustrating re-identification (Re-ID) applied to an Electronic monitoring system
 with a conveyor belt. (a) An individual is detected and assigned a unique identity (ID-25). (b-c) The system
