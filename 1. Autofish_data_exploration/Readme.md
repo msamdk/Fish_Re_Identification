@@ -171,7 +171,7 @@ Each annotation entry includes:
 
 <h2>pycocotools</h2>
 
-But rather than using json to read the annotation, you can use pycocotools
+Use Pycocotools to explore the dataset
 ```python
 
 pip install pycocotools
