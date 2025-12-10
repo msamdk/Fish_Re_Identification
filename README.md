@@ -11,6 +11,9 @@ To address this, developing robust Re-ID models is critical. These models must m
 
 
 [![arXiv](https://img.shields.io/badge/arXiv-Access_Paper-b31b1b.svg)](https://arxiv.org/abs/2512.08400)
+<a href="https://arxiv.org/abs/2512.08400">
+  <img src="https://img.shields.io/badge/arXiv-Access_Paper-b31b1b.svg" height="40">
+</a>
 
 ## Citation
 If you use this code or paper in your research, please cite it as follows:
