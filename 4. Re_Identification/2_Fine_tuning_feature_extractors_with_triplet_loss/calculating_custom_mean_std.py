@@ -11,17 +11,16 @@ import torchvision.transforms.functional as TF
 from PIL import Image
 from torch.utils.data import DataLoader
 import os
-from tqdm import tqdm # For a nice progress bar
+from tqdm import tqdm 
 import numpy as np # For intermediate calculations if preferred, though torch can handle it
 
-# ----------------------------------------
-# --- Configuration 
-#deifining the dataset and data loader
 
-#-----------------------------------------
+# --- Configuration 
+# defining the dataset and data loader
+
 dataset_path = '/work3/msam/Thesis/autofish/metric_learning_instance_split/calibration_folder' 
-N_CHANNELS = 3 # Assuming color images (RGB)
-BATCH_SIZE = 256 # Adjust based on your memory
+N_CHANNELS = 3  
+BATCH_SIZE = 32
 NUM_WORKERS = os.cpu_count() # Use available CPU cores for loading
 
 # --- Dataset and DataLoader ---
@@ -34,7 +33,7 @@ NUM_WORKERS = os.cpu_count() # Use available CPU cores for loading
 
 
 ## strategy to preserve the fish details without cropping the body parts during resizeing
-## in here the padding will be appied to the sides by preserving the details
+## in here the padding will be applied to the sides by preserving the details
 class ResizeAndPadToSquare:
     def __init__(self, output_size_square, fill_color=(0, 0, 0)):
         """
