@@ -169,35 +169,6 @@ Each annotation entry includes:
 
 # Data exploration using python
 
-Reading the dataset from the source. This is an example if you are doing it from google collab. First you have to mount the drive and then define the dataset path and execute this. Other wise use your local disk
-```python
-
-import json
-
-with open('/content/drive/MyDrive/path//annotations.json') as f:
-    annotations = json.load(f)
-```
-Printing major keys in the annotation file.
-COCO style annnotations typically contain these keys
-1. images
-2. annotations
-3. categories
-```python
-print("Keys in annotation file:", annotations.keys())
-
-```
-Object classes in the annotation file
-```python
-
-categories = {cat["id"]: cat["name"] for cat in annotations["categories"]}
-print("Categories:", categories)
-```
-list an example annotation
-```python
-
-ann_ex = annotations['annotations']
-print("Example annotation:", ann_ex[0])
-```
 <h2>pycocotools</h2>
 
 But rather than using json to read the annotation, you can use pycocotools
