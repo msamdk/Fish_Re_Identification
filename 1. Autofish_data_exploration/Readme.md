@@ -14,7 +14,7 @@ Each folder contains multiple images, but **all images within a folder start wit
 
 ---
 
-<img src="images/data_str.jpg" alt="Alt text" width="1200">
+<img src="images/data_str (1).jpg" alt="Alt text" width="1200">
 <img src="images/image 1.png" alt="Alt text" width="500">
 
 ## **Dataset Organization**
