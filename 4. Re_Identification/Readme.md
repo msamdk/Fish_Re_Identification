@@ -1,6 +1,4 @@
-# What is fish Re-ID in Fisheries?
-
-Traditional Electronic Monitoring (EM) systems in smart fisheries face significant limitations in accurately identifying fish species and, more critically, in consistently tracking individual fish on conveyor belts. While conventional object tracking algorithms excel in scenarios with consecutive video frames, they fall short when dealing with the complexities of real-world fishery operations, where fish may overlap, bend, become occluded, or move between different camera views.
+# Challenges in EM video footage
 
 <img src="images/limitations of em.png" alt="Alt text" width="1200">
 
