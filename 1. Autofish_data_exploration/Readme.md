@@ -19,11 +19,11 @@ Each folder contains multiple images, but **all images within a folder start wit
 
 ## Subcategory visualization
 Each fish is given a unique colour which can be seen in each image alongside with their unique Fish ID
-<img src="images/subcate.png" alt="Alt text" width="1000">
+<img src="images/subcate.jpg" alt="Alt text" width="1000">
 
 ## **Dataset Organization**
 The dataset follows the **COCO JSON format**, containing three main sections:
-<img src="images/cocojson.jpg" alt="Alt text" width="500">
+<img src="images/cocojson.png" alt="Alt text" width="500">
 
 ### **1. Images**
 Each image entry includes:
